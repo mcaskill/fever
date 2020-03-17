@@ -1,0 +1,1165 @@
+@import url(reset.css);
+
+html
+{
+	min-height: 100%;
+	margin-bottom: 1px;
+}
+
+body
+{
+	background: fixed #e9e9e9 url(images/bg.png) 0 0 repeat-x;
+	padding: 16px 0 11px;
+	color: #333;
+	font: 10px/16px Helvetica, Arial, sans-serif;
+	min-height: 100%;
+	text-rendering: optimizeLegibility;
+}
+
+a
+{
+	font-weight: bold;
+	text-decoration: none;
+	color: #333;
+	cursor: pointer;
+}
+
+a:hover
+{
+	color: #A10;
+}
+
+code,
+pre
+{
+	background-color: #E8E8E8;
+	opacity: 0.75;
+	font: 10px/14px Monaco, monospace;
+}
+
+pre
+{
+	padding: 8px;
+	overflow: auto;
+}
+
+#logo {
+	display: inline-block;
+	width: 50px;
+	height: 17px;
+	background-size: 50px 17px;
+}
+
+/* buttons */
+button
+{
+	display: inline-block;
+	font: 10px/16px Helvetica, Arial, sans-serif;
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+.btn
+{
+	display: inline-block;
+	vertical-align: middle;
+	width: 16px;
+	height: 16px;
+	line-height: 16px;
+	text-indent: -9999px;
+	cursor: pointer;
+	background-position: 0 0;
+}
+
+.btn.text
+{
+	position: relative;
+	text-indent: 0;
+	text-transform: lowercase;
+	font-weight: normal;
+	width: auto;
+	color: #FFF;
+	padding: 0 0 0 8px;
+	margin: 0 8px 0 0;
+}
+
+.btn.text i
+{
+	display: block;
+	position: absolute;
+	top: 0;
+	right: -8px;
+	width: 8px;
+	height: 16px;
+	background-position: 100% 0;
+}
+
+.btn.menu
+{
+	width: 28px;
+}
+
+.btn.menu.text
+{
+	padding: 0 0 0 6px;
+	margin: 0 15px 0 0;
+	width: auto;
+}
+
+.btn.menu.text i
+{
+	width: 15px;
+	right: -15px;
+}
+
+.btn.default
+{
+	background-position: 0 -32px;
+}
+
+.btn.default i
+{
+	background-position: 100% -32px;
+}
+
+.btn:hover
+{
+	background-position: 0 -16px;
+}
+
+.btn:hover i
+{
+	background-position: 100% -16px;
+}
+
+.btn.text,
+.btn.text i		{ background-image: url(images/btn-text.png); background-size: 640px 48px; }
+.btn.help 		{ background-image: url(images/btn-help.png); background-size: 16px 16px; }
+.btn.refresh	{ background-image: url(images/btn-refresh.png); background-size: 16px 32px; }
+.btn.cancel		{ background-image: url(images/btn-cancel.png); background-size: 16px 32px; }
+.btn.add		{ background-image: url(images/btn-add.png); background-size: 16px 32px; }
+.btn.text.feed	{ background-image: url(images/btn-text-feed.png); background-size: 640px 48px; }
+
+.btn.menu.text,
+.btn.menu.text i	{ background-image: url(images/btn-menu-text.png); background-size: 640px 32px; }
+.btn.menu.action	{ background-image: url(images/btn-menu-action.png); background-size: 28px 32px; }
+.btn.menu.group		{ background-image: url(images/btn-menu-group.png); background-size: 28px 32px; }
+.btn.menu.feed		{ background-image: url(images/btn-menu-feed.png); background-size: 28px 32px; }
+.btn.menu.item		{ background-image: url(images/btn-menu-item.png); background-size: 28px 32px; }
+
+.btn.text.feed
+{
+	padding-left: 16px;
+}
+
+.btn.help
+{
+	position: relative;
+	top: -2px;
+}
+
+button[disabled] .btn
+{
+	cursor: default;
+	background-position: 0 0 !important;
+}
+
+button[disabled] .btn i
+{
+	cursor: default;
+	background-position: 100% 0 !important;
+}
+
+.box-list .btn,
+.item .meta .btn,
+.link .meta .btn
+{
+	display: none;
+}
+
+.box-list #section-0:hover .btn,
+.box-list li:hover > .btn,
+.item:hover .meta .btn,
+.link:hover .meta .btn
+{
+	display: inline-block;
+}
+
+.box-list a:hover
+{
+	color: #333;
+}
+
+.box-list .help
+{
+	display: block;
+	position: absolute;
+	top: 7px;
+	right: 7px;
+}
+
+.box-list .refresh,
+.item .meta .btn.menu
+{
+	position: absolute;
+	top: 7px;
+	right: 5px;
+}
+
+.box-list .btn.menu
+{
+	position: absolute;
+	top: 7px;
+	right: 25px;
+}
+
+.btn.file input
+{
+	position: absolute;
+	display: inline;
+	z-index: 100;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.btn-row
+{
+	vertical-align: middle;
+	text-align: right;
+	white-space: nowrap;
+}
+
+/* generic box styles */
+div.box
+{
+	position: relative;
+	padding: 5px;
+	margin: 0 0 4px;
+	max-width: 2038px; /* 1024px - padding */
+}
+
+.content
+{
+	position: relative;
+	z-index: 1;
+}
+
+s.box u,
+s.box i,
+s.box b
+{
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 7px;
+	background: url(images/bg-box.png) 0 0 no-repeat;
+	background-size: 2048px 48px;
+
+	/** /
+	border: 1px solid red;
+	padding: 1px;
+	/**/
+}
+
+s.box u u,
+s.box i i,
+s.box b b
+{
+	left: auto;
+	right: -7px;
+	width: 7px;
+}
+
+/* top (u = up) */
+s.box u
+{
+	top: 0;
+	height: 8px;
+}
+
+s.box u u
+{
+	background-position: 100% 0;
+}
+
+/* bottom (b) */
+s.box b
+{
+	bottom: 0;
+	height: 7px;
+	background-position: 0 -9px;
+}
+
+s.box b b
+{
+	background-position: 100% -9px;
+}
+
+/* inside (i) */
+s.box i
+{
+	top: 8px;
+	bottom: 7px;
+	background: url(images/bg-box-content-0.png) 0 0 repeat-y;
+	background-size: 2048px 1px;
+}
+
+s.box i i
+{
+	top: 0;
+	bottom: 0;
+	height: 100%;
+	background-position: -2041px 0;
+}
+
+/* forms */
+form
+{
+	padding: 0 0 3px;
+}
+
+form table
+{
+	width: 100%;
+}
+
+th.proto
+{
+	white-space: nowrap;
+}
+
+td.proto
+{
+	width: 100%;
+}
+
+form tr > *
+{
+	padding: 8px 10px 5px 0;
+	background: url(images/bg-form-divider.png) 50% 0 no-repeat;
+	background-size: 1024px 2px;
+}
+
+fieldset table:first-child tr:first-child > *
+{
+	background-image: none;
+}
+
+form tr > *:first-child
+{
+	padding-left: 15px;
+	background-position: 0 0;
+}
+
+form tr > *:last-child
+{
+	padding-right: 15px;
+	background-position: 100% 0;
+}
+
+.dialog form tr > *:first-child
+{
+	padding-left: 5px;
+}
+
+.dialog form tr > *:last-child
+{
+	padding-right: 5px;
+}
+
+form select[multiple]
+{
+/*	max-height: 144px;*/
+}
+
+#service-template
+{
+	display: none;
+}
+
+table.embedded th
+{
+	padding: 4px 0 0;
+}
+
+table.embedded th strong
+{
+	display: block;
+	position: relative;
+	top: 2px;
+	left: 0;
+
+	background: url(images/bg-form-header.png) 50% 100% no-repeat;
+	background-size: 335px 26px;
+	font-size: 9px;
+	line-height: 26px;
+	height: 26px;
+	padding: 0 10px 0 0;
+}
+
+table.embedded th:first-child,
+table.embedded th.key
+{
+	width: 1%;
+	white-space: nowrap;
+}
+
+td.key span.w
+{
+	width: 20px;
+}
+
+td.key span.w input
+{
+	text-align: center;
+}
+
+table.embedded th:first-child strong
+{
+	background-position: 0 100%;
+	padding-left: 4px;
+}
+
+table.embedded th:last-child strong
+{
+	background-position: 100% 100%;
+	padding-right: 0;
+}
+
+table.embedded td:last-child
+{
+	padding-right: 0;
+}
+
+table.embedded th strong .btn.add
+{
+	position: relative;
+	top: 5px;
+}
+
+/* inputs */
+span.w,
+span.i
+{
+	display: block;
+	background-color: #FFF;
+	padding: 1px;
+}
+
+span.i
+{
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: -4px;
+}
+
+span.w input[type=text],
+span.w input[type=email],
+span.w input[type=password],
+span.w select,
+span.w textarea
+{
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+input:focus,
+select[multiple]:focus,
+textarea:focus
+{
+	background-color: #ffc;
+}
+
+select:focus,
+input[type=checkbox]:focus,
+input[type=radio]:focus
+{
+	outline: 1px solid #ffc;
+}
+
+
+/* menu */
+#menu-container
+{
+	display: none;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+#menu
+{
+	position: fixed;
+	z-index: 1000;
+	border: none;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	opacity: 0.95;
+	-webkit-box-shadow: 3px 3px 3px rgba(0,0,0,.1);
+	-moz-box-shadow: 3px 3px 3px rgba(0,0,0,.1);
+	box-shadow: 3px 3px 3px rgba(0,0,0,.1);
+}
+
+#menu-options
+{
+	position: relative;
+	z-index: 1;
+	color: #333;
+	background-color: #FFF;
+	padding: 4px 0;
+	border: none;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+#menu-options li
+{
+	position: relative;
+	line-height: 16px;
+	padding: 0 48px 0 18px;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+#menu-options li span.key
+{
+	position: absolute;
+	top: 0;
+	right: 12px;
+	text-transform: uppercase;
+}
+
+#menu-options li span.key.shift
+{
+	padding: 0 0 0 18px;
+	background: url(images/icon-shift.png) 2px 0 no-repeat;
+	background-size: 16px 32px;
+}
+
+#menu-options li.selected
+{
+	background: url(images/icon-check.png) 2px 0 no-repeat;
+	background-size: 16px 32px;
+}
+
+#menu-options li.disabled
+{
+	color: #333 !important;
+	background-color: #FFF !important;
+	cursor: default;
+	opacity: 0.5;
+}
+
+#menu-options li.selected.disabled:hover
+{
+	background-position: 2px 0;
+}
+
+#menu-options li:hover,
+#menu-options li:hover span.key.shift
+{
+	color: #FFF;
+	background-color: #333;
+	background-position: 2px -16px;
+}
+
+#menu-options li.divider
+{
+	margin: 4px 1px;
+	border-top: 1px solid #EEE;
+}
+
+#menu-shadow
+{
+	position: absolute;
+	top: 	-1px;
+	left: 	-1px;
+	right: 	-1px;
+	bottom: -1px;
+	background-color: #000;
+	opacity: .1;
+	border: none;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/* help */
+#inline-help
+{
+	display: none;
+}
+
+#help-container
+{
+	display: none;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+#help
+{
+	position: fixed;
+	z-index: 1000;
+	border: none;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	opacity: 0.9;
+	color: #FFF;
+	background-color: #333;
+	-moz-text-shadow: 0 0 0 #000;
+	text-shadow: 0 0 0 #000;
+	width: 224px;
+	padding: 8px 10px;
+	font-size: 12px;
+	line-height: 16px;
+}
+
+#help-dangle
+{
+	position: fixed;
+	width: 21px;
+	height: 48px;
+	background: url(images/bg-help.png) 8px 8px no-repeat;
+	background-size: 26px 32px;
+}
+
+#help dt
+{
+	font-weight: bold;
+}
+
+#help dt em
+{
+	color: #BBB;
+	font-weight: normal;
+	font-style: normal;
+}
+
+#help code
+{
+	background-color: transparent;
+}
+
+/* dialogs */
+#dialog-container
+{
+	display: none;
+	position: fixed;
+	z-index: 500;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: url(images/bg-dialog-screen.png) 0 0 repeat;
+}
+
+#dialog-window
+{
+	margin: 32px auto 0;
+	width: 354px;
+}
+
+#dialog
+{
+	padding: 34px 0 0;
+	position: relative;
+}
+
+#dialog h1,
+#dialog form
+{
+	background: url(images/bg-dialog.png) 0 0 no-repeat;
+	background-size: 708px 1024px;
+}
+
+#dialog h1
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 0 8px 4px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	line-height: 30px;
+	font-size: 12px;
+	color: #FFF;
+	-moz-text-shadow: 0 0 0 #000;
+	text-shadow: 0 0 0 #000;
+}
+
+#dialog form
+{
+	background-position: 0 100%;
+	padding: 1px 5px 7px;
+}
+
+#dialog form.tabbed
+{
+	margin-top: 22px;
+}
+
+#dialog form.tabbed h1
+{
+	background-position: -354px 0;
+	padding-bottom: 26px;
+}
+
+#dialog form.tabbed div.btn-row
+{
+	background: url(images/bg-dialog-form.gif) 50% 50% no-repeat;
+	background-size: 344px 987px;
+}
+
+#dialog form.tabbed div.btn-row fieldset
+{
+	background: url(images/bg-form-divider.png) 50% 0 no-repeat;
+	background-size: 1024px 2px;
+	padding: 8px 6px 4px 0;
+}
+
+#dialog ul.tabs
+{
+	position: absolute;
+	top: 33px;
+	left: 3px;
+}
+
+#dialog ul.tabs li,
+#dialog ul.tabs li a
+{
+	background: url(images/bg-tab.png) 0 0 no-repeat;
+	background-size: 512px 52px;
+}
+
+#dialog ul.tabs li
+{
+	display: block;
+	float: left;
+	padding: 0 0 0 12px;
+	margin: 0 -2px 0 -4px;
+}
+
+#dialog ul.tabs li a
+{
+	display: block;
+	height: 26px;
+	line-height: 22px;
+	padding-right: 12px;
+	background-position: 100% 0;
+	color: #f2f2f2;
+}
+
+#dialog ul.tabs li a .btn.help
+{
+	margin: 0 -4px 0 0;
+}
+
+#dialog ul.tabs li.active
+{
+	z-index: 100;
+	background-position: 0 -26px;
+}
+
+#dialog ul.tabs li.active a
+{
+	background-position: 100% -26px;
+	color: #666;
+}
+
+#dialog ul.tabs li.active:first-child
+{
+	padding-left: 8px;
+	margin-left: 0;
+	background-position: -4px -26px;
+}
+
+#dialog div.tab
+{
+	display: none;
+}
+
+#dialog div.tab.active
+{
+	display: block;
+}
+
+#dialog div.tab h2
+{
+	display: none;
+}
+
+#dialog fieldset,
+#dialog h2
+{
+	background: url(images/bg-dialog-form.gif) 0 0 no-repeat;
+	background-size: 344px 987px;
+}
+
+#dialog fieldset
+{
+	position: relative;
+	z-index: 1;
+}
+
+#dialog h1 + *,
+#dialog form.tabbed div.tab fieldset
+{
+	margin-top: -3px;
+}
+
+#dialog h2
+{
+	color: #666;
+	padding: 4px 5px 2px;
+	background-position: 0 -985px;
+}
+
+#dialog p
+{
+	padding: 4px 5px;
+}
+
+.onloader
+{
+	position: absolute;
+	top: 0;
+	width: 0;
+	height: 0;
+}
+
+#top
+{
+	position: absolute;
+	top: 0;
+}
+
+/* dragger */
+#dragger
+{
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	cursor: move;
+	opacity: 0.6;
+
+	background-color: #333;
+	color: #FFF;
+	line-height: 30px;
+	padding: 0 5px 0 30px;
+
+	border: none;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+#dragger em
+{
+	display: none;
+}
+
+/* iframe */
+#refresh
+{
+	z-index: 4;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 0;
+}
+
+/* errors */
+ul.errors
+{
+	margin: 18px 0;
+}
+
+ul.errors li
+{
+	padding-left: 22px !important;
+	background: url(images/bg-error.png) 0 1px no-repeat !important;
+	background-size: 18px 14px !important;
+}
+
+/* debug */
+#debug
+{
+	display: block;
+	z-index: 1000;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+#debug-clear
+{
+	z-index: 1001;
+	position: absolute;
+	top: 8px;
+	right: 24px;
+}
+
+#debug-filter
+{
+	z-index: 1001;
+	position: absolute;
+	top: 8px;
+	right: 76px;
+}
+
+#debug ul
+{
+	height: 300px;
+	overflow: auto;
+
+	border-top: 2px solid #222;
+	background-color: #333;
+	color: #fff;
+}
+
+#debug pre,
+#debug code
+{
+	background-color: transparent;
+}
+
+#debug li
+{
+	display: block;
+	padding: 4px 8px;
+}
+
+#debug li:nth-child(even)
+{
+	background-color: rgba(0,0,0,0.2);
+	border-top: 2px solid rgba(0,0,0,0.2);
+	border-bottom: 2px solid rgba(0,0,0,0.2);
+}
+
+#debug li.debug-restart
+{
+	background-color: #a10;
+}
+
+
+#debug li em
+{
+	font-weight: bold;
+	font-style: normal;
+}
+
+#null
+{
+	display: none;
+}
+
+/* for iPad only (ideally) */
+@media only screen and (device-width: 768px)
+{
+	/* prevent iPad MobileSafari from requiring two taps in lists */
+	.box-list #section-0:hover .btn,
+	.box-list li:hover > .btn,
+	.item:hover .meta .btn,
+	.link:hover .meta .btn
+	{
+		display: none;
+	}
+	.box-list #section-0.has-focus .btn,
+	.box-list li.has-focus > .btn,
+	.item.has-focus .meta .btn,
+	.link.has-focus .meta .btn
+	{
+		display: inline-block;
+	}
+
+	/* prevents iPad MobileSafari from requiring two taps for menus, don't ask me how */
+	.btn:hover
+	{
+		border: 1px solid rgba(0,0,0,0);
+	}
+
+	/* help is all kinds of wonky, fixed position isn't really supported and some events aren't firing so hide for now */
+	#help-container,
+	#help,
+	#help-dangle
+	{
+		display: none !important;
+	}
+}
+
+/* for Safari only */
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+	.btn
+	{
+		line-height: 15px;
+	}
+
+	.btn.file input
+	{
+		left: 0; /* fubar in FF */
+	}
+}
+
+/* for Opera only */
+@media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0)
+{
+	head~body .btn
+	{
+		line-height: 18px;
+	}
+
+	head~body #help
+	{
+		opacity: 1;
+	}
+}
+
+/* for MobileSafari only */
+@media only screen and (max-device-width: 480px)
+{
+	body
+	{
+		-webkit-text-size-adjust: none;
+	}
+
+	.item-content
+	{
+		-webkit-text-size-adjust: auto;
+	}
+
+	.btn.text i
+	{
+		right: -16px;
+	}
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	#logo {
+		background-image: url(../../../images/logo-fever@2x.png);
+	}
+	#logo img {
+		opacity: 0;
+	}
+
+	body
+	{
+/*		background-image: url(images/bg@2x.png);*/
+	}
+
+	.btn.text,
+	.btn.text i		{ background-image: url(images/btn-text@2x.png); }
+	.btn.help 		{ background-image: url(images/btn-help@2x.png); }
+	.btn.refresh	{ background-image: url(images/btn-refresh@2x.png); }
+	.btn.cancel		{ background-image: url(images/btn-cancel@2x.png); }
+	.btn.add		{ background-image: url(images/btn-add@2x.png); }
+	.btn.text.feed	{ background-image: url(images/btn-text-feed@2x.png); }
+
+	.btn.menu.text,
+	.btn.menu.text i	{ background-image: url(images/btn-menu-text@2x.png); }
+	.btn.menu.action	{ background-image: url(images/btn-menu-action@2x.png); }
+	.btn.menu.group		{ background-image: url(images/btn-menu-group@2x.png); }
+	.btn.menu.feed		{ background-image: url(images/btn-menu-feed@2x.png); }
+	.btn.menu.item		{ background-image: url(images/btn-menu-item@2x.png); }
+
+	s.box u,
+	s.box i,
+	s.box b
+	{
+		background-image: url(images/bg-box@2x.png);
+	}
+
+	s.box i
+	{
+		background-image: url(images/bg-box-content-0@2x.png);
+	}
+
+	form tr > *
+	{
+		background-image: url(images/bg-form-divider@2x.png);
+	}
+
+	table.embedded th strong
+	{
+		background-image: url(images/bg-form-header@2x.png);
+	}
+
+	#menu-options li span.key.shift
+	{
+		background-image: url(images/icon-shift@2x.png);
+	}
+
+	#menu-options li.selected
+	{
+		background-image: url(images/icon-check@2x.png);
+	}
+
+	#help-dangle
+	{
+		background-image: url(images/bg-help@2x.png);
+	}
+
+	#dialog-container
+	{
+/*		background-image: url(images/bg-dialog-screen@2x.png);*/
+	}
+
+	#dialog h1,
+	#dialog form
+	{
+		background-image: url(images/bg-dialog@2x.png);
+	}
+
+	#dialog form.tabbed div.btn-row
+	{
+		background-image: url(images/bg-dialog-form@2x.gif);
+	}
+
+	#dialog form.tabbed div.btn-row fieldset
+	{
+		background-image: url(images/bg-form-divider@2x.png);
+	}
+
+	#dialog ul.tabs li,
+	#dialog ul.tabs li a
+	{
+		background-image: url(images/bg-tab@2x.png);
+	}
+
+	#dialog fieldset,
+	#dialog h2
+	{
+		background-image: url(images/bg-dialog-form@2x.gif);
+	}
+
+	ul.errors li
+	{
+		background-image: url(images/bg-error@2x.png) !important;
+	}
+}
