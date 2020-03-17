@@ -1,0 +1,249 @@
+@import url(shared.css);
+
+/* page box */
+.page
+{
+	width: 357px;
+	margin: 0 auto;
+}
+
+.page div.box
+{
+	padding: 0;
+	margin: 0;
+}
+
+.page s.box u,
+.page s.box i,
+.page s.box b
+{
+	background-image: url(images/bg-page.png);
+	background-size: 2048px 14px;
+}
+
+.page s.box i
+{
+	background-image: url(images/bg-page-content.png);
+	background-size: 2048px 1px;
+}
+
+.page s.box b
+{
+	background-position: 0 -7px;
+}
+
+.page s.box b b
+{
+	background-position: 100% -7px;
+}
+
+.page s.box s
+{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	height: 100%;
+	left: 0;
+	right: 7px;
+	background: url(images/bg-page-gradient.png) 0 0 no-repeat;
+}
+
+.page s.box s s
+{
+	left: auto;
+	right: -7px;
+	width: 7px;
+	background-position: 100% 0;
+}
+
+.page h1
+{
+	font-weight: normal;
+	font-size: 52px;
+	line-height: 48px;
+	font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: 300;
+	color: #FFF;
+	-moz-text-shadow: 1px 1px 1px #CCC;
+	text-shadow: 1px 1px 1px #CCC;
+	padding: 17px 0 0;
+	margin: 0 13px 13px;
+}
+
+.page h2
+{
+	font-size: 12px;
+	color: #A10;
+	margin: 0 15px 12px;
+}
+
+.page p,
+.page ul,
+.page pre
+{
+	margin: 0 15px 12px;
+}
+
+.page p.btn-row
+{
+	padding: 8px 15px;
+	margin: 0 3px 0 2px;
+	background: url(images/bg-form-divider.png) 50% 0 no-repeat;
+	background-size: 1024px 2px;
+}
+
+.text a
+{
+	color: #a10;
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+.text a:hover
+{
+	text-decoration: none;
+}
+
+
+/* footer */
+.footer
+{
+	position: relative;
+	margin: 8px 0 0;
+	padding: 0 0 0 68px;
+	line-height: 12px;
+	color: #999;
+}
+
+.footer #logo
+{
+	position: absolute;
+	top: 3px;
+	left: 8px;
+}
+
+.footer #logo:hover
+{
+	opacity: .6;
+}
+
+.footer a
+{
+	font-weight: normal;
+}
+
+#eula textarea
+{
+	padding: 0 0 0 4px;
+	font: 10px/14px Monaco, "Courier New", Courier, monospace;
+}
+
+#remind-form,
+#feed-options-template,
+.feed-options
+{
+	display: none;
+}
+
+#select-all
+{
+	position: absolute;
+	left: 15px;
+	bottom: 8px;
+}
+
+#shortcuts
+{
+	margin: 0 15px 12px;
+}
+
+#shortcuts table
+{
+	width: 100%;
+}
+
+#shortcuts th,td
+{
+	text-align: left;
+	vertical-align: top;
+	padding: 2px 8px 2px 0;
+}
+
+#shortcuts td em
+{
+	font-weight: normal;
+	font-style: normal;
+	color: #666;
+}
+
+#shortcuts th
+{
+	font-size: 12px;
+	font-weight: bold;
+	color: #A10;
+}
+
+#shortcuts tr th:first-child,
+#shortcuts tr td:first-child
+{
+	font-weight: bold;
+	text-align: right;
+	white-space: nowrap;
+	padding-left: 8px;
+	width: 1px;
+}
+
+#shortcuts tr:nth-child(even) td
+{
+	background-color: rgba(0,0,0,0.05);
+}
+
+#shortcuts span.shift
+{
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-image: url(images/icon-shift.png);
+	background-size: 16px 32px;
+	background-position: 0 0;
+	padding-left: 16px;
+}
+
+.symbols
+{
+	font-family: "Lucida Grande", Verdana;
+	font-size: 12px;
+}
+
+label.guess
+{
+	color: #a26731;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	.page s.box u,
+	.page s.box i,
+	.page s.box b
+	{
+		background-image: url(images/bg-page@2x.png);
+	}
+
+	.page s.box i
+	{
+		background-image: url(images/bg-page-content@2x.png);
+	}
+
+	.page s.box s
+	{
+/*		background-image: url(images/bg-page-gradient@2x.png);*/
+	}
+
+	.page p.btn-row
+	{
+		background-image: url(images/bg-form-divider@2x.png);
+	}
+
+	#shortcuts span.shift
+	{
+		background-image: url(images/icon-shift@2x.png);
+	}
+}

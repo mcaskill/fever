@@ -1,0 +1,6 @@
+/.htaccess
+/config/
+/firewall/config/
+/firewall/receipt.txt
+/firewall/receipt_db.php
+/firewall/tmp/
