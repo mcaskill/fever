@@ -1,21 +1,10 @@
+@import url(shared.css);
 
 /* page box */
 .page
 {
 	width: 357px;
 	margin: 0 auto;
-}
-
-form a
-{
-	font-weight: normal;
-	text-decoration: underline;
-	color: #A10;
-}
-
-form a:hover
-{
-	text-decoration: none;
 }
 
 .page div.box
@@ -29,11 +18,13 @@ form a:hover
 .page s.box b
 {
 	background-image: url(images/bg-page.png);
+	background-size: 2048px 14px;
 }
 
 .page s.box i
 {
 	background-image: url(images/bg-page-content.png);
+	background-size: 2048px 1px;
 }
 
 .page s.box b
@@ -73,8 +64,8 @@ form a:hover
 	font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-weight: 300;
 	color: #FFF;
-	text-shadow: 1px 1px 1px #CCC;
 	-moz-text-shadow: 1px 1px 1px #CCC;
+	text-shadow: 1px 1px 1px #CCC;
 	padding: 17px 0 0;
 	margin: 0 13px 13px;
 }
@@ -98,7 +89,21 @@ form a:hover
 	padding: 8px 15px;
 	margin: 0 3px 0 2px;
 	background: url(images/bg-form-divider.png) 50% 0 no-repeat;
+	background-size: 1024px 2px;
 }
+
+.text a
+{
+	color: #a10;
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+.text a:hover
+{
+	text-decoration: none;
+}
+
 
 /* footer */
 .footer
@@ -164,6 +169,13 @@ form a:hover
 	padding: 2px 8px 2px 0;
 }
 
+#shortcuts td em
+{
+	font-weight: normal;
+	font-style: normal;
+	color: #666;
+}
+
 #shortcuts th
 {
 	font-size: 12px;
@@ -186,15 +198,52 @@ form a:hover
 	background-color: rgba(0,0,0,0.05);
 }
 
-td.shift
+#shortcuts span.shift
 {
+	display: inline-block;
 	background-repeat: no-repeat;
 	background-image: url(images/icon-shift.png);
-	background-position: 34px 2px;
+	background-size: 16px 32px;
+	background-position: 0 0;
+	padding-left: 16px;
 }
 
 .symbols
 {
 	font-family: "Lucida Grande", Verdana;
 	font-size: 12px;
+}
+
+label.guess
+{
+	color: #a26731;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	.page s.box u,
+	.page s.box i,
+	.page s.box b
+	{
+		background-image: url(images/bg-page@2x.png);
+	}
+
+	.page s.box i
+	{
+		background-image: url(images/bg-page-content@2x.png);
+	}
+
+	.page s.box s
+	{
+/*		background-image: url(images/bg-page-gradient@2x.png);*/
+	}
+
+	.page p.btn-row
+	{
+		background-image: url(images/bg-form-divider@2x.png);
+	}
+
+	#shortcuts span.shift
+	{
+		background-image: url(images/icon-shift@2x.png);
+	}
 }
