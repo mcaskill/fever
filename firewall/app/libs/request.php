@@ -9,7 +9,7 @@
  ******************************************************************************/
 if (!defined('REQUEST_UA')) 			{ define('REQUEST_UA', 'SI_Request'); }
 if (!defined('REQUEST_REDIRECT_LIMIT'))	{ define('REQUEST_REDIRECT_LIMIT', 4); }
-if (!isset($REQUEST_TIMEOUT)) 			{ $REQUEST_TIMEOUT = 10; } // seconds
+if (!isset($REQUEST_TIMEOUT)) 			{ $REQUEST_TIMEOUT = 20; } // seconds
 
 /*-----------------------------------------------------------------------------
  get()									  Get the contents of the requested url

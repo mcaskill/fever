@@ -2,10 +2,10 @@
 if (!defined('FIREWALL_ROOT')) { header('Location:../'); }
 
 include(FIREWALL_ROOT.'app/libs/util.php');
-include(FIREWALL_ROOT.'app/libs/compatibilizer.php');
+include(FIREWALL_ROOT.'app/libs/apptivator.php');
 
-$Compatibilizer = new Compatibilizer();
+$Apptivator = new Apptivator();
 
 include(FIREWALL_ROOT.'app/libs/request.php');
 
-$Compatibilizer->route();
+$Apptivator->route();

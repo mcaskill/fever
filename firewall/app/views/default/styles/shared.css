@@ -1,134 +1,4 @@
-/* COMPATIBILIZER */
 
-li,
-li div.msg
-{
-	display: none;
-	margin-bottom: 6px;
-}
-
-li:first-child,
-li.done,
-li.done.pass + li,
-li.done.ignore + li
-{
-	display: list-item;
-}
-
-li div.in-progress,
-li.pass div.pass,
-li.fail div.fail,
-li.ignore div.fail
-{
-	display: block;
-}
-
-li.done div.in-progress
-{
-	display: none;
-}
-
-div.disclaimer
-{
-	display: none;
-}
-
-li.fail div.disclaimer,
-li.ignore div.disclaimer
-{
-	display: block;
-}
-
-
-#checker
-{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 1px;
-	height: 1px;
-	opacity: 0;
-}
-
-li div
-{
-	padding-left: 20px;
-}
-
-li.spinner div
-{
-	background: url(images/spinner-dark.gif) 0 0 no-repeat;
-}
-
-/* CUSTOM COMPATIBILIZER */
-#mysql form
-{
-	margin: 6px -16px 12px -36px;
-}
-
-#mysql table
-{
-	width: 100%;
-}
-
-#mysql form th
-{
-	padding-left: 36px;
-}
-
-#success
-{
-	font-size: 12px;
-	line-height: 18px;
-
-	display: none;
-	padding: 8px 15px;
-	margin: 0 3px 0 2px;
-	background: url(images/bg-form-divider.png) 50% 0 no-repeat;
-}
-
-#success a
-{
-	font-weight: normal;
-	text-decoration: underline;
-	color: #A10;
-}
-
-#success a:hover
-{
-	text-decoration: none;
-}
-
-li.fail div.disclaimer,
-li.ignore div.disclaimer
-{
-	color: #666;
-	background-image: none;
-}
-
-li div
-{
-	background: url(images/bg-pending.png) 2px 2px no-repeat;
-}
-
-div.pass
-{
-	background: url(images/bg-pass.png) 2px 2px no-repeat;
-}
-
-div.fail
-{
-	color: #bf2726;
-	background: url(images/bg-fail.png) 0 1px no-repeat;
-}
-
-li.ignore div.fail
-{
-	color: #f80;
-	background: url(images/bg-ignore.png) 0 1px no-repeat;
-}
-
-/* FEVER */
 html
 {
 	min-height: 100%;
@@ -760,6 +630,23 @@ span.w textarea
 {
 	position: absolute;
 	top: 0;
+}
+
+/* errors */
+div.error-note
+{
+	margin: 0 15px 12px;
+}
+
+ul.errors
+{
+	margin: 18px 0;
+}
+
+ul.errors li
+{
+	padding-left: 22px !important;
+	background: url(images/bg-error.png) 0 1px no-repeat !important;
 }
 
 /* dragger */
