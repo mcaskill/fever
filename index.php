@@ -1,0 +1,3 @@
+<?php
+
+// Process activation key
