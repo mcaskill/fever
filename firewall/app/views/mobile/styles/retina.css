@@ -1,0 +1,236 @@
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	ul.list li,
+	ul.source-list li,
+	#login form .box fieldset
+	{
+		background-image: url(images/bg-row@2x.gif);
+	}
+
+	#login h1
+	{
+		background-image: url(images/logo-login@2x.png);
+	}
+
+	input[type=search]
+	{
+		background-image: transparent url(images/bg-search@2x.png);
+	}
+
+	.num
+	{
+		background-image: url(images/txt-tmp@2x.gif);
+	}
+
+	.btn
+	{
+		background-image: url(images/bg-btn@2x.gif);
+	}
+
+	.btn.back:before
+	{
+		background-image: url(images/icon-back@2x.png);
+	}
+
+	.btn.forward:after
+	{
+		background-image: url(images/icon-forward@2x.png);
+	}
+
+	.btn.menu:after
+	{
+		background-image: url(images/icon-menu@2x.png);
+	}
+
+	.btn.menu.spinning:after,
+	.btn.back.spinning:before,
+	.btn.forward.spinning:after
+	{
+		background-image: url(images/spinner@2x.gif) !important;
+	}
+
+	.btn.menu.spinning:after
+	{
+		background-image: url(images/spinner-dark@2x.gif) !important;
+	}
+
+	.btn.action:before
+	{
+		background-image: url(images/icon-action@2x.png);
+	}
+
+	.btn.safari:before
+	{
+		background-image: url(images/icon-safari@2x.png);
+	}
+
+	#fever .header .left,
+	#feedlet .header .left
+	{
+		background-image: url(images/logo@2x.png);
+	}
+
+	#fever .header .left.spinning
+	{
+		background-image: url(images/logo-spinner@2x.gif);
+	}
+
+	#feed-0:before
+	{
+		background-image: url(images/icon-unread@2x.png);
+	}
+
+	#section-0:before
+	{
+		background-image: url(images/icon-hot@2x.png);
+	}
+
+	#group-0:before
+	{
+		background-image: url(images/icon-kindling@2x.png);
+	}
+
+	#section-2:before
+	{
+		background-image: url(images/icon-saved@2x.png);
+	}
+
+	#section-3:before
+	{
+		background-image: url(images/icon-sparks@2x.png);
+	}
+
+	#section-4:before
+	{
+		background-image: url(images/icon-search@2x.png);
+	}
+
+	li.spinning:before
+	{
+		background-image: url(images/spinner@2x.gif) !important;
+	}
+
+	.header .title:before
+	{
+		background-image: url(images/icon-group@2x.png);
+	}
+
+	#hot .header .title:before
+	{
+		background-image: url(images/icon-hot@2x.png);
+	}
+
+	.header .title.kindling:before
+	{
+		background-image: url(images/icon-kindling@2x.png);
+	}
+
+	.header .title.saved:before
+	{
+		background-image: url(images/icon-saved@2x.png);
+	}
+
+	.header .title.sparks:before
+	{
+		background-image: url(images/icon-sparks@2x.png);
+	}
+
+	.header .title.search:before
+	{
+		background-image: url(images/icon-search@2x.png);
+	}
+
+	.header .title.unread:before
+	{
+		background-image: url(images/icon-unread@2x.png);
+	}
+
+	.header .title.feed:before
+	{
+		background-image: url(images/icon-feed@2x.png);
+	}
+
+	body.spinning .header .title:before
+	{
+		background-image: url(images/spinner-dark@2x.gif);
+	}
+
+	#hot .box
+	{
+		background-image: url(images/bg-temperature@2x.gif);
+	}
+
+	body.landscape #hot .box
+	{
+		background-image: url(images/bg-temperature-landscape@2x.gif);
+	}
+
+	i.favicon.icon i
+	{
+		background-image: url(images/icon-favicon@2x.png);
+	}
+
+	.meta h2
+	{
+		background-image: url(images/bg-row@2x.gif);
+	}
+
+	.item .meta .state
+	{
+		background-image: url(images/bg-state@2x.png);
+	}
+
+	#webview .header .title:before
+	{
+		background-image: url(images/icon-webview-favicon@2x.png);
+	}
+
+	#webview .header .title.spinning:before
+	{
+		background-image: url(images/spinner-webview@2x.gif);
+	}
+
+	#webview .btn.back:before
+	{
+		background-image: url(images/icon-webview-back@2x.png);
+	}
+
+	.btn.safari:before
+	{
+		background-image: url(images/icon-webview-safari@2x.png);
+	}
+
+	.box .action-list
+	{
+		background-image: url(images/bg-form@2x.png);
+	}
+
+	.action-close
+	{
+		background-image: url(images/form-close@2x.png);
+	}
+
+	.checkbox
+	{
+		background-image: url(images/form-checkbox@2x.png);
+	}
+
+	#dialog
+	{
+		background-image: url(images/bg-form@2x.png);
+	}
+
+	#dialog .close
+	{
+		background-image: url(images/form-close@2x.png);
+	}
+
+	#dialog .checkbox
+	{
+		background-image: url(images/form-checkbox@2x.png);
+	}
+
+	.checkbox
+	{
+		background-image: url(images/form-checkbox@2x.png);
+	}
+}

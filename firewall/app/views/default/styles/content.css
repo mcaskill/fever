@@ -1,0 +1,191 @@
+/* item content */
+.item .content,
+.link .content
+{
+	overflow: hidden;
+}
+
+.item-content
+{
+	margin: 13px 32px 10px;
+	max-width: 360px;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+/** /
+.temperature:after,
+.item:after,
+.item-content:after
+{
+	display: block;
+	content: '';
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+/**/
+
+.item-content a
+{
+	color: #A10;
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+.item-content a:visited
+{
+	color: #666;
+}
+
+.item-content a:hover
+{
+	color: #A10;
+	text-decoration: none;
+}
+
+.item-content h1,
+.item-content h2,
+.item-content h3,
+.item-content h4,
+.item-content h5,
+.item-content h6,
+.item-content p,
+.item-content blockquote,
+.item-content ol,
+.item-content ul,
+.item-content dl,
+.item-content pre,
+.item-content table
+{
+	margin: 18px 0;
+}
+
+.item-content *:first-child
+{
+	margin-top: 0;
+}
+
+
+.item-content b,
+.item-content big,
+.item-content strong
+{
+	color: #666;
+	font-weight: bold;
+}
+
+.item-content i,
+.item-content em
+{
+	font-style: italic;
+}
+
+.item-content h1
+{
+	font-size: 18px;
+	line-height: 24px;
+}
+
+.item-content h2
+{
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.item-content img
+{
+	max-width: 140%;
+	height: auto;
+}
+
+.item-content p img
+{
+	float: left;
+	margin: 0 8px 8px 0;
+}
+.item-content p:after
+{
+	display: block;
+	content: '';
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+
+.item-content blockquote
+{
+	border-left: 1px solid #CCC;
+	padding-left: 8px;
+}
+
+.item-content ul
+{
+	list-style: disc;
+	padding-left: 18px;
+}
+
+.item-content ol
+{
+	list-style: decimal;
+	padding-left: 18px;
+}
+
+.item-content code,
+.item-content pre
+{
+	background-color: #E8E8E8;
+	opacity: 0.75;
+	font: 10px/14px Monaco, monospace;
+}
+
+.item-content pre
+{
+	padding: 8px;
+	overflow: auto;
+}
+
+.item-content th,
+.item-content td
+{
+	padding-right: 4px;
+}
+
+.item-content s,
+.item-content strike,
+.item-content del
+{
+	text-decoration: line-through;
+	opacity: 0.5;
+}
+
+.item-content ins,
+.item .content span.q
+{
+	position: relative;
+	z-index: 100;
+	display: inline-block;
+	background-color: rgba(255,255,137,0.5);
+	padding: 0 2px;
+	margin: 0 -2px;
+	border: none;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+/** /
+.item.full .item-content:after
+{
+	display: block;
+	content: '';
+
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+
+	width: 4px;
+	height: 4px;
+	background-color: red;
+}
+/**/
