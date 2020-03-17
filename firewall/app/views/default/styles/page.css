@@ -6,11 +6,22 @@
 	margin: 0 auto;
 }
 
+form a
+{
+	font-weight: normal;
+	text-decoration: underline;
+	color: #A10;
+}
+
+form a:hover
+{
+	text-decoration: none;
+}
+
 .page div.box
 {
 	padding: 0;
 	margin: 0;
-	padding-bottom: 1px;
 }
 
 .page s.box u,

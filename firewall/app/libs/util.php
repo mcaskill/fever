@@ -300,14 +300,3 @@ function save_to_file($content, $local_path)
 	}
 }
 
-/**************************************************************************
- push()
-
- Pushes any available output of the script to the browser.
- **************************************************************************/
-function push()
-{
-	e(str_pad('', 1024));
-	@ob_flush();
-	flush();
-}

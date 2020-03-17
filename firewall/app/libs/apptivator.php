@@ -2,9 +2,9 @@
 
 error_reporting(E_ALL);
 
-class Compatibilizer
+class Apptivator
 {
-	var $version 	= 5;
+	var $version 	= 1;
 	var $app_name 	= '';
 	var $errors		= array
 	(
@@ -16,10 +16,10 @@ class Compatibilizer
 	/**************************************************************************
 	 Apptivator()
 	 **************************************************************************/
-	function Compatibilizer()
+	function Apptivator()
 	{
 		$this->app_name = trim(file_get_contents(FIREWALL_ROOT.'receipt.txt'));
-		define('REQUEST_UA', $this->app_name.' Compatibilizer/'.$this->formatted_version().' ('.$this->app_name.' Server Compatibility Suite)');
+		define('REQUEST_UA', $this->app_name.' Apptivator/'.$this->formatted_version().' (Self-hosted Application Activator)');
 	}
 
 	/**************************************************************************
@@ -131,47 +131,12 @@ class Compatibilizer
 			$this->uninstall(true);
 		}
 
-		if (isset($_GET['query']))
+		if (isset($_POST['activation_key']))
 		{
-			$this->render('query_check');
+			$this->activate();
 		}
 
-		if (isset($_GET['utf8']))
-		{
-			$this->render('utf8_check');
-		}
-
-		if (isset($_GET['png']))
-		{
-			$this->render('png_check');
-		}
-
-		if (isset($_GET['mbstring']))
-		{
-			$this->render('mbstring_check');
-		}
-
-		if (isset($_GET['flush']))
-		{
-			$this->render('flush_check');
-		}
-
-		if (isset($_GET['fix-flush']))
-		{
-			$this->render('flush_fix');
-		}
-
-		if (isset($_GET['mysql']))
-		{
-			$this->render('mysql_check');
-		}
-
-		if (isset($_GET['passed']))
-		{
-			$this->render('passed');
-		}
-
-		$this->render('check');
+		$this->render('activation');
 	}
 
 	/**************************************************************************
@@ -225,20 +190,100 @@ class Compatibilizer
 	}
 
 	/**************************************************************************
-	 apptivate()
+	 activate()
+
+	 todo: L10N
 	 **************************************************************************/
-	function apptivate()
+	function activate()
 	{
+		if (!isset($_POST['accept_eula']))
+		{
+			$this->error('To continue with installation you <em>must</em> accept the '.$this->app_name.' End User License Agreement.');
+		}
+
+		if (empty($_POST['activation_key']))
+		{
+			$this->error('Please enter your Activation Key for '.$this->app_name);
+		}
+
+		if ($this->has_error())
+		{
+			$this->render('errors');
+			exit();
+		}
+
 		// todo: copy from boot.php
 		define('SOURCES_URL', 'http://feedafever.com/gateway/');
 
+		global $REQUEST_TIMEOUT;
+		$REQUEST_TIMEOUT = 30;
+
+		// todo: validate
+		$activation_key	= $_POST['activation_key'];
+		$paths 			= $this->install_paths();
+		$response 		= post(SOURCES_URL, array
+		(
+			'app_name'			=> low($this->app_name),
+			'activation_key' 	=> $activation_key,
+			'domain_name'		=> $paths['trim']
+		),
+		array('X-Apptivator-Action:Install'));
+
+		if (!empty($response['error']['msg']))
+		{
+			$this->annotate_error("Could not connect to the {$this->app_name} activation server. {$response['error']['type']} error:");
+			$this->error("{$response['error']['msg']} ({$response['error']['no']})");
+			$this->render('errors');
+			exit();
+		}
+		else if (!isset($response['headers']['X-Apptivator-Verified']) || !$response['headers']['X-Apptivator-Verified'])
+		{
+			$this->error('The Activation Key <strong>'.$activation_key.'</strong> is not valid for '.$this->app_name.' on: '.$paths['trim']);
+			$this->render('errors');
+			exit();
+		}
+
+		$zip_name = 'data';
+		if (m('#([^"]+).zip"\s*$#', $response['headers']['Content-Disposition'], $m))
+		{
+			$zip_name = $m[1];
+		}
+
+		$zip_data = $response['body'];
+		$zip_path = FIREWALL_ROOT.'tmp/'.$zip_name.'.zip';
+
 		mkdir(FIREWALL_ROOT.'tmp');
-		remote_copy(SOURCES_URL.'public/apptivator.zip', FIREWALL_ROOT.'tmp/apptivator.zip');
+		save_to_file($zip_data, $zip_path);
 		include(FIREWALL_ROOT.'app/libs/pclzip/pclzip.lib.php');
-		$archive = new PclZip(FIREWALL_ROOT.'tmp/apptivator.zip');
+		$archive = new PclZip($zip_path);
+
+		$contents 	= $archive->listContent();
+		$root_path 	= '';
+
+		foreach($contents as $file_meta)
+		{
+			if (m('#(.+)/app/$#', $file_meta['filename'], $m))
+			{
+				$root_path = $m[1];
+				break;
+			}
+		}
+
 		rm(FIREWALL_ROOT.'app');
-		$archive->extract(PCLZIP_OPT_PATH, FIREWALL_ROOT, PCLZIP_OPT_REMOVE_PATH, 'apptivator');
+		$archive->extract(PCLZIP_OPT_PATH, FIREWALL_ROOT, PCLZIP_OPT_REMOVE_PATH, $root_path);
 		rm(FIREWALL_ROOT.'tmp');
+		rm(FIREWALL_ROOT.$zip_name); // not sure where this is coming from
+
+		$key_php  = '<?php';
+		$key_php .= <<<PHP
+
+define('ACTIVATION_KEY', '{$activation_key}');
+
+PHP;
+		save_to_file($key_php, FIREWALL_ROOT.'config/key.php');
+
+		header('Location:./');
+		exit();
 	}
 
 	/**************************************************************************
