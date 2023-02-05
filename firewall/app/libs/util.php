@@ -23,7 +23,7 @@ function elapsed_execution_time()
 /**************************************************************************
  e()
  **************************************************************************/
-function e($str = '')
+function e($str)
 {
 	echo $str;
 }
@@ -31,7 +31,7 @@ function e($str = '')
 /**************************************************************************
  p()
  **************************************************************************/
-function p($obj = null, $title = '', $print=true)
+function p($obj, $title = '', $print=true)
 {
 	$html = '';
 	if (!empty($title)) { $html .= "{$title}: "; }
@@ -72,7 +72,7 @@ function ptab($rows, $label='', $print=true) {
 /**************************************************************************
  low()
  **************************************************************************/
-function low($str = '')
+function low($str)
 {
 	return strtolower($str);
 }
@@ -80,7 +80,7 @@ function low($str = '')
 /**************************************************************************
  up()
  **************************************************************************/
-function up($str = '')
+function up($str)
 {
 	return strtoupper($str);
 }
@@ -88,7 +88,7 @@ function up($str = '')
 /**************************************************************************
  sr()
  **************************************************************************/
-function sr($find = '', $replace = '', $str = '')
+function sr($find, $replace, $str)
 {
 	return str_replace($find, $replace, $str);
 }
@@ -96,7 +96,7 @@ function sr($find = '', $replace = '', $str = '')
 /**************************************************************************
  r()
  **************************************************************************/
-function r($find = '', $replace = '', $str = '')
+function r($find, $replace, $str)
 {
 	return preg_replace($find, $replace, $str);
 }
@@ -104,7 +104,7 @@ function r($find = '', $replace = '', $str = '')
 /**************************************************************************
  m()
  **************************************************************************/
-function m($find = '', $str = '', &$matches)
+function m($find, $str, &$matches = null)
 {
 	return preg_match($find, $str, $matches);
 }
@@ -112,7 +112,7 @@ function m($find = '', $str = '', &$matches)
 /**************************************************************************
  ma()
  **************************************************************************/
-function ma($find = '', $str = '', &$matches)
+function ma($find, $str, &$matches = null)
 {
 	return preg_match_all($find, $str, $matches);
 }
@@ -120,7 +120,7 @@ function ma($find = '', $str = '', &$matches)
 /**************************************************************************
  nl()
  **************************************************************************/
-function nl($str = '')
+function nl($str)
 {
 	return "{$str}\n";
 }
@@ -128,7 +128,7 @@ function nl($str = '')
 /**************************************************************************
  t()
  **************************************************************************/
-function t($str = '', $tabs = 0)
+function t($str, $tabs = 0)
 {
 	return str_repeat("\t", $tabs).$str;
 }
@@ -140,7 +140,7 @@ function t($str = '', $tabs = 0)
  non-empty paragraph tag/double line-break trimmed to the nearest word and
  appended with an ellipsis.
  **************************************************************************/
-function excerpt($html = '', $max_length = 200)
+function excerpt($html, $max_length = 200)
 {
 	$content = $html.'</p>'; // the following regex executes forever on some strings without the closing </p>
 	if (ma('#(.+)(</p>|(<br( /)?>{2,}))#misU', $content, $m))
@@ -1133,7 +1133,7 @@ function ago($time)
  Inserts a non-breaking space between the last two words of $str to prevent
  unwanted typographic widows.
  **************************************************************************/
-function widont($str = '')
+function widont($str)
 {
 	return r('|([^\s])\s+([^\s]+)\s*$|', '$1&nbsp;$2', $str);
 }
@@ -1154,7 +1154,7 @@ function quote($str)
 
  Used to track memory consumption tied to labelled events.
  **************************************************************************/
-function memory_event($event_name = '')
+function memory_event($event_name)
 {
 	if (!err()) return;
 
@@ -1271,7 +1271,7 @@ function memory_report_to_file()
 /**************************************************************************
  tmp_log_to_file()
  **************************************************************************/
-function tmp_log_to_file($obj = null, $title = '')
+function tmp_log_to_file($obj, $title = '')
 {
 	if ($file = fopen('log.txt', 'a+'))
 	{
@@ -1284,7 +1284,7 @@ function tmp_log_to_file($obj = null, $title = '')
 /**************************************************************************
  tmp_log()
  **************************************************************************/
-function tmp_log($obj = null, $title = '')
+function tmp_log($obj, $title = '')
 {
 	$debug = debug_backtrace(false);
 	ob_start();
@@ -1344,7 +1344,7 @@ function rm($file_path)
 
  Returns a serialized, base64-encoded string from a PHP object.
  **************************************************************************/
-function serialize_safe($data = null)
+function serialize_safe($data)
 {
 	return base64_encode(serialize($data));
 }
@@ -1354,7 +1354,7 @@ function serialize_safe($data = null)
 
  Returns a PHP object from a base64-encoded, serialized string.
  **************************************************************************/
-function unserialize_safe($base64_data = '')
+function unserialize_safe($base64_data)
 {
 	return unserialize(base64_decode($base64_data));
 }
