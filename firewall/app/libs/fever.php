@@ -6,9 +6,9 @@ define('VALID_EMAIL', 		'!^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b
 
 class Fever
 {
-	var $app_name	= 'Fever';
-	var $version 	= 139;
-	var $db			= array
+	public $app_name	= 'Fever';
+	public $version 	= 139;
+	protected $db		= array
 	(
 		'server' 	=> 'localhost',
 		'database'	=> '',
@@ -17,8 +17,8 @@ class Fever
 		'prefix'	=> 'fever_',
 		'connected'	=> false
 	);
-	var $dbc		= null;
-	var $cfg		= array
+	protected $dbc		= null;
+	protected $cfg		= array
 	(
 		'email'					=> '',
 		'password'				=> '',
@@ -41,7 +41,7 @@ class Fever
 			'last_updated_manually'	=> 0
 		)
 	);
-	var $prefs		= array
+	protected $prefs	= array
 	(
 		'ui'			=> array
 		(
@@ -115,7 +115,7 @@ class Fever
 			)
 		)
 	);
-	var $manifest 	= array
+	protected $manifest = array
 	(
 		'_config'		=> "
 		(
@@ -235,51 +235,51 @@ class Fever
 		)"
 	);
 
-	var $vars	= array();
-	var $errors	= array
+	protected $vars		= array();
+	protected $errors	= array
 	(
 		'fatal'	=> false,
 		'note'	=> '',
 		'list'	=> array()
 	);
-	var $groups	= array();
-	var $feeds	= array();
-	var $items	= array();
+	protected $groups	= array();
+	protected $feeds	= array();
+	protected $items	= array();
 
-	var $total_feeds 	= 0;
-	var $total_items	= 0;
-	var $total_unread	= 0;
-	var $total_saved	= 0;
+	protected $total_feeds 	= 0;
+	protected $total_items	= 0;
+	protected $total_unread	= 0;
+	protected $total_saved	= 0;
 
-	var $last_refreshed_on_time	= 0;
-	var $last_cached_on_time	= 0;
+	protected $last_refreshed_on_time	= 0;
+	protected $last_cached_on_time		= 0;
 
-	var $links_by_degrees		= array();
-	var $group_ids_by_feed_id	= array();
-	var $feed_ids_by_group_id	= array();
-	var $sparks_feed_ids		= array();
-	var $saved_feed_ids			= array();
-	var $feed_ids				= array();
+	protected $links_by_degrees		= array();
+	protected $group_ids_by_feed_id	= array();
+	protected $feed_ids_by_group_id	= array();
+	protected $sparks_feed_ids		= array();
+	protected $saved_feed_ids		= array();
+	protected $feed_ids				= array();
 
-	var $is_silent = false;
-	var $is_mobile = false;
-	var $is_ipad = false;
-	var $page	= 1;
+	protected $is_silent = false;
+	protected $is_mobile = false;
+	protected $is_ipad = false;
+	protected $page	= 1;
 
 	var $DateParser;
 
-	var $item_allows	= array
+	protected $item_allows	= array
 	(
 		'text only',
 		'text w/images',
 		'unfiltered'
 	);
-	var $sort_order 	= array
+	protected $sort_order 	= array
 	(
 		'newest first',
 		'oldest first'
 	);
-	var $hot_start		= array
+	protected $hot_start	= array
 	(
 		0 => 'now',
 		'-' => '-',
@@ -296,7 +296,7 @@ class Fever
 		28 	=> '4 weeks ago',
 		35 	=> '5 weeks ago'
 	);
-	var $hot_range		= array
+	protected $hot_range	= array
 	(
 		1 => 'day',
 		2 => '2 days',
@@ -312,7 +312,7 @@ class Fever
 		'--' => '-',
 		31 	=> 'month'
 	);
-	var $exp_range		= array
+	protected $exp_range	= array
 	(
 		2,4,6,10
 	);
@@ -320,7 +320,7 @@ class Fever
 	/**************************************************************************
 	 Fever()
 	 **************************************************************************/
-	function __construct()
+	public function __construct()
 	{
 		$this->db['server']		= FEVER_DB_SERVER;
 		$this->db['database'] 	= FEVER_DB_DATABASE;
@@ -359,7 +359,7 @@ class Fever
 	/**************************************************************************
 	 capabilities()
 	 **************************************************************************/
-	function capabilities()
+	public function capabilities()
 	{
 		$caps = array();
 		$caps['fever_version']			= version_clean($this->formatted_version());
@@ -380,7 +380,7 @@ class Fever
 	/**************************************************************************
 	 formatted_version()
 	 **************************************************************************/
-	function formatted_version()
+	public function formatted_version()
 	{
 		$version = (!isset($this->cfg['version']) || !$this->cfg['version']) ? $this->version : $this->cfg['version'];
 		$len = (substr($version.'', -1) == '0') ? 1 : 2;
@@ -390,7 +390,7 @@ class Fever
 	/**************************************************************************
 	 error()
 	 **************************************************************************/
-	function error($error, $level = 0)
+	public function error($error, $level = 0)
 	{
 		$this->errors['fatal'] = ($level == 2);
 
@@ -407,7 +407,7 @@ class Fever
 	/**************************************************************************
 	 fatal_error()
 	 **************************************************************************/
-	function fatal_error($error)
+	public function fatal_error($error)
 	{
 		$this->error($error, 2);
 	}
@@ -415,7 +415,7 @@ class Fever
 	/**************************************************************************
 	 annotate_error()
 	 **************************************************************************/
-	function annotate_error($note)
+	public function annotate_error($note)
 	{
 		$this->errors['note'] = $note;
 	}
@@ -423,7 +423,7 @@ class Fever
 	/**************************************************************************
 	 drop_error()
 	 **************************************************************************/
-	function drop_error($containing = '')
+	public function drop_error($containing = '')
 	{
 		if (empty($containing))
 		{
@@ -447,7 +447,7 @@ class Fever
 	/**************************************************************************
 	 reset_errors()
 	 **************************************************************************/
-	function reset_errors()
+	public function reset_errors()
 	{
 		$data = get_class_vars('Fever');
 		$this->errors = $data['errors'];
@@ -456,7 +456,7 @@ class Fever
 	/**************************************************************************
 	 render_errors()
 	 **************************************************************************/
-	function render_errors()
+	public function render_errors()
 	{
 		$html = '';
 		if(!empty($this->errors['note']))
@@ -481,7 +481,7 @@ class Fever
 
 	 TODO: rephrase recognized MySQL errors into helpful human-readable errors
 	 **************************************************************************/
-	function connect()
+	public function connect()
 	{
 		$this->dbc = SIDB($this->db['database'], $this->db['username'], $this->db['password'], $this->db['server']); //, SIDB_API_MYSQL);
 		$connected = $this->dbc->is_connected;
@@ -496,7 +496,7 @@ class Fever
 	/**************************************************************************
 	 is_connected()
 	 **************************************************************************/
-	function is_connected()
+	public function is_connected()
 	{
 		return $this->db['connected'];
 	}
@@ -504,7 +504,7 @@ class Fever
 	/**************************************************************************
 	 is_connected()
 	 **************************************************************************/
-	function close()
+	public function close()
 	{
 		$this->dbc->close();
 		exit();
@@ -513,7 +513,7 @@ class Fever
 	/**************************************************************************
 	 query()
 	 **************************************************************************/
-	function query($query)
+	public function query($query)
 	{
 		$before = ms();
 		$error  = false;
@@ -531,7 +531,7 @@ class Fever
 	/**************************************************************************
 	 insert()
 	 **************************************************************************/
-	function insert($query)
+	public function insert($query)
 	{
 		$this->query($query);
 		return $this->dbc->insert_id();
@@ -540,7 +540,7 @@ class Fever
 	/**************************************************************************
 	 save_one()
 	 **************************************************************************/
-	function save_one($table, $row_data, $where = '')
+	public function save_one($table, $row_data, $where = '')
 	{
 		if (!isset($this->manifest[$table]))
 		{
@@ -600,7 +600,7 @@ class Fever
 
 	 Selects a single record using the provided query.
 	 ******************************************************************************/
-	function query_one($query)
+	public function query_one($query)
 	{
 		$query = "{$query} LIMIT 1";
 
@@ -618,7 +618,7 @@ class Fever
 
 	 Selects all records using the provided query.
 	 ******************************************************************************/
-	function query_all($query)
+	public function query_all($query)
 	{
 		$return = array();
 		if ($this->query($query)) {
@@ -636,7 +636,7 @@ class Fever
 	 Selects the value of a single column from a single record using the provided
 	 query.
 	 ******************************************************************************/
-	function query_col($col, $query)
+	public function query_col($col, $query)
 	{
 		if ($row = $this->query_one($query)) {
 			if (isset($row[$col])) {
@@ -655,7 +655,7 @@ class Fever
 	 Selects the value of a single column from a number of records using the provided
 	 query.
 	 ******************************************************************************/
-	function query_cols($col, $query)
+	public function query_cols($col, $query)
 	{
 		$return = array();
 		if ($rows = $this->query_all($query)) {
@@ -677,7 +677,7 @@ class Fever
 
 	 Selects a single record from $table (without prefix) where $where matches.
 	 ******************************************************************************/
-	function get_one($table, $where = 1)
+	public function get_one($table, $where = 1)
 	{
 		return $this->query_one("SELECT * FROM `{$this->db['prefix']}{$table}` WHERE {$where}");
 	}
@@ -688,7 +688,7 @@ class Fever
 	 Selects a single column from a single record from $table (without prefix) where
 	 $where matches.
 	 ******************************************************************************/
-	function get_col($col, $table, $where)
+	public function get_col($col, $table, $where)
 	{
 		return $this->query_col($col, "SELECT `{$col}` FROM `{$this->db['prefix']}{$table}` WHERE {$where}");
 
@@ -700,7 +700,7 @@ class Fever
 	 Selects a single column from a number of records from $table (without prefix)
 	 where $where matches.
 	 ******************************************************************************/
-	function get_cols($col, $table, $where = 1)
+	public function get_cols($col, $table, $where = 1)
 	{
 		return $this->query_cols($col, "SELECT `{$col}` FROM `{$this->db['prefix']}{$table}` WHERE {$where}");
 
@@ -712,7 +712,7 @@ class Fever
 	 Returns the total number of records from $table (without prefix) where $where
 	 matches.
 	 ******************************************************************************/
-	function get_count($table, $where = 1)
+	public function get_count($table, $where = 1)
 	{
 		return $this->query_col('total', "SELECT COUNT(*) AS 'total' FROM `{$this->db['prefix']}{$table}` WHERE {$where}");
 	}
@@ -722,7 +722,7 @@ class Fever
 
 	 Selects all records from $table (without prefix) where $where matches.
 	 ******************************************************************************/
-	function get_all($table, $where = 1)
+	public function get_all($table, $where = 1)
 	{
 		return $this->query_all("SELECT * FROM `{$this->db['prefix']}{$table}` WHERE {$where}");
 	}
@@ -730,7 +730,7 @@ class Fever
 	/**************************************************************************
 	 escape_sql()
 	 **************************************************************************/
-	function escape_sql($str = '')
+	public function escape_sql($str = '')
 	{
 		return r("/(^'|'$)/", '', $this->dbc->quote($str));
 	}
@@ -743,7 +743,7 @@ class Fever
 		prepare_sql('`email` = ? AND `password` = ?', 'my@email.com', '94s5w3R6');
 
 	 **************************************************************************/
-	function prepare_sql($query)
+	public function prepare_sql($query)
 	{
 		$args = func_get_args();
 		return call_user_func_array(array($this->dbc, 'prepare'), $args);
@@ -754,7 +754,7 @@ class Fever
 
 	 TODO: make sure resource exists
 	 **************************************************************************/
-	function render($view_name = '', $string_output = false)
+	public function render($view_name = '', $string_output = false)
 	{
 		static $depth = 0;
 		$depth++;
@@ -779,7 +779,7 @@ class Fever
 	/**************************************************************************
 	 view_file()
 	 **************************************************************************/
-	function view_file($base_file_name)
+	public function view_file($base_file_name)
 	{
 		$dir	= 'default';
 		if ($this->is_mobile)
@@ -797,7 +797,7 @@ class Fever
 	/**************************************************************************
 	 route()
 	 **************************************************************************/
-	function route()
+	public function route()
 	{
 		// the database has been configured but we are not connected
 		if ($this->is_db_configured() && !$this->is_connected())
@@ -946,7 +946,7 @@ class Fever
 
 	 License verification performed by the separate Apptivator prior to install.
 	 **************************************************************************/
-	function route_installation()
+	public function route_installation()
 	{
 		// use the Compatibilizer-captured DB details if available.
 		if (file_exists(FIREWALL_ROOT.'receipt_db.php') && !isset($_POST['action']))
@@ -993,7 +993,7 @@ class Fever
 	/**************************************************************************
 	 route_uninstall()
 	 **************************************************************************/
-	function route_uninstall()
+	public function route_uninstall()
 	{
 		if (isset($_POST['confirm']))
 		{
@@ -1016,7 +1016,7 @@ class Fever
 	/**************************************************************************
 	 route_empty()
 	 **************************************************************************/
-	function route_empty()
+	public function route_empty()
 	{
 		if (isset($_POST['confirm']))
 		{
@@ -1039,7 +1039,7 @@ class Fever
 	/**************************************************************************
 	 route_unorphan()
 	 **************************************************************************/
-	function route_unorphan()
+	public function route_unorphan()
 	{
 		if (isset($_POST['confirm']))
 		{
@@ -1062,7 +1062,7 @@ class Fever
 	/**************************************************************************
 	 route_flush()
 	 **************************************************************************/
-	function route_flush()
+	public function route_flush()
 	{
 		if (isset($_POST['confirm']))
 		{
@@ -1085,7 +1085,7 @@ class Fever
 	/**************************************************************************
 	 route_updates()
 	 **************************************************************************/
-	function route_updates()
+	public function route_updates()
 	{
 		$this->check_for_updates(true);
 		$this->render('manage/update');
@@ -1096,7 +1096,7 @@ class Fever
 
 	 Reloads the a fresh copy of current version from the Fever gateway
 	 **************************************************************************/
-	function route_revert()
+	public function route_revert()
 	{
 		if (!$this->is_development_copy())
 		{
@@ -1111,7 +1111,7 @@ class Fever
 	/**************************************************************************
 	 route_update()
 	 **************************************************************************/
-	function route_update()
+	public function route_update()
 	{
 		$this->cfg['updates']['last_updated_manually'] = 1;
 		$this->save();
@@ -1121,7 +1121,7 @@ class Fever
 	/**************************************************************************
 	 route_updated()
 	 **************************************************************************/
-	function route_updated()
+	public function route_updated()
 	{
 		$last_updated_manually = $this->cfg['updates']['last_updated_manually'];
 		$this->cfg['updates']['last_updated_on_time']	= 0;
@@ -1135,7 +1135,7 @@ class Fever
 	/**************************************************************************
 	 route_manifest()
 	 **************************************************************************/
-	function route_manifest()
+	public function route_manifest()
 	{
 		// should create a manifest that tells MobileSafari which files
 		// to cache for later, possibly offline, viewing
@@ -1150,7 +1150,7 @@ class Fever
 	/**************************************************************************
 	 route_rss()
 	 **************************************************************************/
-	function route_rss()
+	public function route_rss()
 	{
 		if ($_GET['rss'] == 'saved')
 		{
@@ -1183,7 +1183,7 @@ class Fever
 	/**************************************************************************
 	 route_api()
 	 **************************************************************************/
-	function route_api()
+	public function route_api()
 	{
 		$data = array
 		(
@@ -1480,7 +1480,7 @@ class Fever
 	/**************************************************************************
 	 render_api()
 	 **************************************************************************/
-	function render_api($data = array(), $output = '')
+	public function render_api($data = array(), $output = '')
 	{
 		include(FIREWALL_ROOT.'app/libs/api.php');
 		switch($output)
@@ -1503,7 +1503,7 @@ class Fever
 	/**************************************************************************
 	 route_auth()
 	 **************************************************************************/
-	function route_auth()
+	public function route_auth()
 	{
 		if (isset($_GET['logout']))
 		{
@@ -1542,7 +1542,7 @@ class Fever
 	/**************************************************************************
 	 route_favicons()
 	 **************************************************************************/
-	function route_favicons()
+	public function route_favicons()
 	{
 		$last_cached_on_time	= $this->get_col('last_cached_on_time', 'favicons', '1 ORDER BY `last_cached_on_time` DESC');
 
@@ -1581,7 +1581,7 @@ class Fever
 
 	 TODO: add error checking
 	 **************************************************************************/
-	function route_image()
+	public function route_image()
 	{
 		$image_url	= $_GET['img'];
 		$response 	= get($image_url);
@@ -1609,7 +1609,7 @@ class Fever
 	/**************************************************************************
 	 route_refresh()
 	 **************************************************************************/
-	function route_refresh()
+	public function route_refresh()
 	{
 		if (!$this->is_logged_in())
 		{
@@ -1644,7 +1644,7 @@ class Fever
 	/**************************************************************************
 	 route_manage()
 	 **************************************************************************/
-	function route_manage()
+	public function route_manage()
 	{
 		if (isset($_POST['action']))
 		{
@@ -1809,7 +1809,7 @@ class Fever
 	/**************************************************************************
 	 route_blacklist()
 	 **************************************************************************/
-	function route_blacklist()
+	public function route_blacklist()
 	{
 		if (isset($_POST['blacklist']))
 		{
@@ -1829,7 +1829,7 @@ class Fever
 	/**************************************************************************
 	 route_subscribe()
 	 **************************************************************************/
-	function route_subscribe()
+	public function route_subscribe()
 	{
 		if (isset($_GET['url']))
 		{
@@ -1844,7 +1844,7 @@ class Fever
 	/**************************************************************************
 	 route_feedlet()
 	 **************************************************************************/
-	function route_feedlet()
+	public function route_feedlet()
 	{
 		if (isset($_GET['js']))
 		{
@@ -1868,7 +1868,7 @@ class Fever
 	/**************************************************************************
 	 route_extras()
 	 **************************************************************************/
-	function route_extras()
+	public function route_extras()
 	{
 		$this->vars['paths'] = $this->install_paths();
 		$this->render('extras');
@@ -1877,7 +1877,7 @@ class Fever
 	/**************************************************************************
 	 route_extras()
 	 **************************************************************************/
-	function route_shortcuts()
+	public function route_shortcuts()
 	{
 		$this->render('keyboard-shortcuts');
 	}
@@ -1885,7 +1885,7 @@ class Fever
 	/**************************************************************************
 	 route_reader()
 	 **************************************************************************/
-	function route_reader()
+	public function route_reader()
 	{
 		// capture query vars
 		$page 		= (isset($_GET['page'])) ? (int) $_GET['page'] : 1;
@@ -1940,7 +1940,7 @@ class Fever
 	/**************************************************************************
 	 capture_state()
 	 **************************************************************************/
-	function capture_state($sender = 'ui')
+	public function capture_state($sender = 'ui')
 	{
 		if (isset($_GET[$sender]))
 		{
@@ -1992,7 +1992,7 @@ class Fever
 	/**************************************************************************
 	 visit_feed_site()
 	 **************************************************************************/
-	function visit_feed_site($feed_id)
+	public function visit_feed_site($feed_id)
 	{
 		$feed = $this->get_one('feeds', $this->prepare_sql('`id` = ?', $feed_id));
 		if (!empty($feed['site_url']))
@@ -2006,7 +2006,7 @@ class Fever
 	 save_db()
 
 	 **************************************************************************/
-	function save_db()
+	public function save_db()
 	{
 		$this->db['server']		= $_POST['db_server'];
 		$this->db['database']	= $_POST['db_database'];
@@ -2079,7 +2079,7 @@ PHP;
 	 validate_preferences()
 
 	 **************************************************************************/
-	function validate_preferences()
+	public function validate_preferences()
 	{
 		$has_error = false;
 
@@ -2111,7 +2111,7 @@ PHP;
 	 install()
 
 	 **************************************************************************/
-	function install()
+	public function install()
 	{
 		$this->validate_preferences();
 
@@ -2142,7 +2142,7 @@ PHP;
 	/**************************************************************************
 	 is_db_configured()
 	 **************************************************************************/
-	function is_db_configured()
+	public function is_db_configured()
 	{
 		return (defined('FEVER_DB_DATABASE') && FEVER_DB_DATABASE != '') ? true : false;
 	}
@@ -2150,7 +2150,7 @@ PHP;
 	/**************************************************************************
 	 is_installed()
 	 **************************************************************************/
-	function is_installed()
+	public function is_installed()
 	{
 		return ($this->cfg['installed_on_time']) ? true : false;
 	}
@@ -2158,7 +2158,7 @@ PHP;
 	/**************************************************************************
 	 reset()
 	 **************************************************************************/
-	function reset($confirm = false)
+	public function reset($confirm = false)
 	{
 		if ($confirm)
 		{
@@ -2174,7 +2174,7 @@ PHP;
 
 	 used to prevent deletion/overwriting of development source
 	 **************************************************************************/
-	function is_development_copy()
+	public function is_development_copy()
 	{
 		$paths = $this->install_paths();
 		return (bool) m('/^localhost|\.test$/', '', $paths['trim']);
@@ -2183,7 +2183,7 @@ PHP;
 	/**************************************************************************
 	 uninstall()
 	 **************************************************************************/
-	function uninstall($confirm = false)
+	public function uninstall($confirm = false)
 	{
 		if ($this->is_installed() && $confirm)
 		{
@@ -2200,7 +2200,7 @@ PHP;
 	/**************************************************************************
 	 unorphan()
 	 **************************************************************************/
-	function unorphan($confirm = false)
+	public function unorphan($confirm = false)
 	{
 		if ($confirm)
 		{
@@ -2214,7 +2214,7 @@ PHP;
 	/**************************************************************************
 	 empty_all()
 	 **************************************************************************/
-	function empty_all($confirm = false)
+	public function empty_all($confirm = false)
 	{
 		if ($confirm)
 		{
@@ -2231,7 +2231,7 @@ PHP;
 	/**************************************************************************
 	 flush()
 	 **************************************************************************/
-	function flush($confirm = false)
+	public function flush($confirm = false)
 	{
 		if ($confirm)
 		{
@@ -2254,7 +2254,7 @@ PHP;
 
 	 Whether now is a good time to update or not, prevents updating mid-action.
 	 **************************************************************************/
-	function can_update()
+	public function can_update()
 	{
 		$can_update = (
 			empty($_POST) &&
@@ -2274,7 +2274,7 @@ PHP;
 	 check_for_updates()
 
 	 **************************************************************************/
-	function check_for_updates($force = false)
+	public function check_for_updates($force = false)
 	{
 		// don't update mid-refresh
 		if (!$this->can_update())
@@ -2307,7 +2307,7 @@ PHP;
 	/**************************************************************************
 	 update_files()
 	 **************************************************************************/
-	function update_files()
+	public function update_files()
 	{
 		if
 		(
@@ -2397,7 +2397,7 @@ PHP;
 	/**************************************************************************
 	 update_available()
 	 **************************************************************************/
-	function update_available()
+	public function update_available()
 	{
 		return ($this->cfg['version'] < $this->cfg['updates']['last_checked_version']);
 	}
@@ -2406,7 +2406,7 @@ PHP;
 	 gateway_request()
 
 	 **************************************************************************/
-	function gateway_request($action)
+	public function gateway_request($action)
 	{
 		$paths		= $this->install_paths();
 		$response 	= post('http://feedafever.com/gateway/', array
@@ -2423,7 +2423,7 @@ PHP;
 	/**************************************************************************
 	 update()
 	 **************************************************************************/
-	function update()
+	public function update()
 	{
 		// files have been updated
 		// update database or customize updated files
@@ -2538,7 +2538,7 @@ PHP;
 	/**************************************************************************
 	 login()
 	 **************************************************************************/
-	function login()
+	public function login()
 	{
 		$name 	= "{$this->db['prefix']}auth";
 		$value 	= md5("FEVER-{$this->cfg['installed_on_time']}-{$this->cfg['password']}");
@@ -2549,7 +2549,7 @@ PHP;
 	/**************************************************************************
 	 is_logged_in()
 	 **************************************************************************/
-	function is_logged_in()
+	public function is_logged_in()
 	{
 		$name 	= "{$this->db['prefix']}auth";
 		$value 	= md5("FEVER-{$this->cfg['installed_on_time']}-{$this->cfg['password']}");
@@ -2559,7 +2559,7 @@ PHP;
 	/**************************************************************************
 	 logout()
 	 **************************************************************************/
-	function logout()
+	public function logout()
 	{
 		$name 	= "{$this->db['prefix']}auth";
 		setcookie($name, '', (time() - (60 * 60 * 24 * 365)));
@@ -2569,7 +2569,7 @@ PHP;
 	/**************************************************************************
 	 authenticate()
 	 **************************************************************************/
-	function authenticate()
+	public function authenticate()
 	{
 		if (trim($_POST['email']) == $this->cfg['email'] && trim($_POST['password']) == $this->cfg['password'])
 		{
@@ -2586,7 +2586,7 @@ PHP;
 	/**************************************************************************
 	 remind()
 	 **************************************************************************/
-	function remind()
+	public function remind()
 	{
 		if ($_POST['email'] == $this->cfg['email'])
 		{
@@ -2611,7 +2611,7 @@ PHP;
 	/**************************************************************************
 	 install_paths()
 	 **************************************************************************/
-	function install_paths()
+	public function install_paths()
 	{
 		$paths		= array();
 		$self		= (isset($_SERVER['PHP_SELF']) && !empty($_SERVER['PHP_SELF']))?$_SERVER['PHP_SELF']:((isset($_SERVER['SCRIPT_NAME']) && !empty($_SERVER['SCRIPT_NAME']))?$_SERVER['SCRIPT_NAME']:$_SERVER['SCRIPT_URL']);
@@ -2630,7 +2630,7 @@ PHP;
 	/**************************************************************************
 	 load()
 	 **************************************************************************/
-	function load()
+	public function load()
 	{
 		if ($data = $this->get_one('_config'))
 		{
@@ -2674,7 +2674,7 @@ PHP;
 	/**************************************************************************
 	 save()
 	 **************************************************************************/
-	function save()
+	public function save()
 	{
 		if ($this->errors['fatal'])
 		{
@@ -2690,7 +2690,7 @@ PHP;
 	/**************************************************************************
 	 save_preferences()
 	 **************************************************************************/
-	function save_preferences()
+	public function save_preferences()
 	{
 		$this->validate_preferences();
 
@@ -2743,7 +2743,7 @@ PHP;
 	/**************************************************************************
 	 import()
 	 **************************************************************************/
-	function import($opml, $import_groups = true)
+	public function import($opml, $import_groups = true)
 	{
 		include_once(FIREWALL_ROOT.'app/libs/omdomdom.php');
 		$DOM	= OMDOMDOM::parse($opml);
@@ -2817,7 +2817,7 @@ PHP;
 	/**************************************************************************
 	 export()
 	 **************************************************************************/
-	function export($group_ids = array(), $flatten = false, $include_sparks = false)
+	public function export($group_ids = array(), $flatten = false, $include_sparks = false)
 	{
 		$this->relationships();
 		$title 		= 'Fever';
@@ -2917,7 +2917,7 @@ PHP;
 	/**************************************************************************
 	 add_group()
 	 **************************************************************************/
-	function add_group($group = array())
+	public function add_group($group = array())
 	{
 		$group_id = null;
 
@@ -2957,7 +2957,7 @@ PHP;
 	/**************************************************************************
 	 edit_group()
 	 **************************************************************************/
-	function edit_group($group = array())
+	public function edit_group($group = array())
 	{
 		if (!isset($group['id']))
 		{
@@ -2982,7 +2982,7 @@ PHP;
 	/**************************************************************************
 	 delete_group()
 	 **************************************************************************/
-	function delete_group($group_id, $unsubscribe = false)
+	public function delete_group($group_id, $unsubscribe = false)
 	{
 		$this->query($this->prepare_sql("DELETE FROM `{$this->db['prefix']}groups` WHERE `id` = ?", $group_id));
 
@@ -3018,7 +3018,7 @@ PHP;
 	/**************************************************************************
 	 delete_sparks()
 	 **************************************************************************/
-	function delete_sparks()
+	public function delete_sparks()
 	{
 		$feed_ids = $this->get_cols('id', 'feeds', '`is_spark`=1');
 		foreach($feed_ids as $feed_id)
@@ -3030,7 +3030,7 @@ PHP;
 	/**************************************************************************
 	 add_feed()
 	 **************************************************************************/
-	function add_feed($feed = array())
+	public function add_feed($feed = array())
 	{
 		$feed_id = null;
 		if (!isset($feed['url']) || empty($feed['url']))
@@ -3085,7 +3085,7 @@ PHP;
 	/**************************************************************************
 	 delete_feed()
 	 **************************************************************************/
-	function delete_feed($feed_id)
+	public function delete_feed($feed_id)
 	{
 		$this->query($this->prepare_sql("DELETE FROM `{$this->db['prefix']}feeds` WHERE `id` = ?", $feed_id));
 		$this->query($this->prepare_sql("DELETE FROM `{$this->db['prefix']}items` WHERE `feed_id` = ?", $feed_id));
@@ -3102,7 +3102,7 @@ PHP;
 	/**************************************************************************
 	 add_feed_to_group()
 	 **************************************************************************/
-	function add_feed_to_group($feed_id, $group_id)
+	public function add_feed_to_group($feed_id, $group_id)
 	{
 		// don't allow 0:Kindling supergroup or duplicate feed/group relationships
 		if ($group_id && !$this->get_one('feeds_groups', $this->prepare_sql('`feed_id` = ? AND `group_id` = ?', $feed_id, $group_id)))
@@ -3115,7 +3115,7 @@ PHP;
 	/**************************************************************************
 	 remove_feed_from_group()
 	 **************************************************************************/
-	function remove_feed_from_group($feed_id, $group_id)
+	public function remove_feed_from_group($feed_id, $group_id)
 	{
 		$this->query($this->prepare_sql("DELETE FROM `{$this->db['prefix']}feeds_groups` WHERE `feed_id` = ? AND `group_id` = ?", $feed_id, $group_id));
 	}
@@ -3123,7 +3123,7 @@ PHP;
 	/**************************************************************************
 	 edit_feed()
 	 **************************************************************************/
-	function edit_feed($feed = array())
+	public function edit_feed($feed = array())
 	{
 		if (!isset($feed['id']))
 		{
@@ -3168,7 +3168,7 @@ PHP;
 	/**************************************************************************
 	 authorize_feed()
 	 **************************************************************************/
-	function authorize_feed($feed_id, $username, $password)
+	public function authorize_feed($feed_id, $username, $password)
 	{
 		$auth = base64_encode("{$username}:{$password}");
 		$query = $this->prepare_sql("UPDATE `{$this->db['prefix']}feeds` SET `auth` = ?, `last_refreshed_on_time` = 0 WHERE `id` = ?", $auth, $feed_id);
@@ -3179,7 +3179,7 @@ PHP;
 	/**************************************************************************
 	 add_favicon()
 	 **************************************************************************/
-	function add_favicon($favicon = array())
+	public function add_favicon($favicon = array())
 	{
 		$favicon_id = null;
 		if (!isset($favicon['cache'], $favicon['url']) || empty($favicon['cache']) || empty($favicon['url']))
@@ -3207,7 +3207,7 @@ PHP;
 	/**************************************************************************
 	 add_default_favicon()
 	 **************************************************************************/
-	function add_default_favicon()
+	public function add_default_favicon()
 	{
 		$default_favicon = 'image/gif;base64,R0lGODlhAQABAIAAAObm5gAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
 		return $this->add_favicon(array('url' => 'favicon.png', 'cache' => $default_favicon));
@@ -3221,7 +3221,7 @@ PHP;
 	 if objects are not eliminated each iteration this function will refresh
 	 infinitely.
 	 **************************************************************************/
-	function infiniterator($objs, $each_method, $complete_method = '', $refresh_args = '')
+	public function infiniterator($objs, $each_method, $complete_method = '', $refresh_args = '')
 	{
 		global $REQUEST_TIMEOUT;
 
@@ -3311,7 +3311,7 @@ PHP;
 	/**************************************************************************
 	 housekeeping()
 	 **************************************************************************/
-	function housekeeping()
+	public function housekeeping()
 	{
 		// optimize the database every 24 hours
 		$do_optimize = ($this->cfg['last_optimize_on_time'] < time() - (60 * 60 * 24));
@@ -3353,7 +3353,7 @@ PHP;
 	/**************************************************************************
 	 refresh()
 	 **************************************************************************/
-	function refresh($group_id = 0)
+	public function refresh($group_id = 0)
 	{
 		// optimize and repair tables if necessary
 		$this->housekeeping();
@@ -3391,7 +3391,7 @@ PHP;
 	/**************************************************************************
 	 refresh_cron()
 	 **************************************************************************/
-	function refresh_cron()
+	public function refresh_cron()
 	{
 		// this function is publicly exposed so prevent abuse
 		unset($_GET['force']);
@@ -3403,7 +3403,7 @@ PHP;
 	/**************************************************************************
 	 refresh_one()
 	 **************************************************************************/
-	function refresh_one($feed_id, $favicon = false)
+	public function refresh_one($feed_id, $favicon = false)
 	{
 		$feed	= $this->get_one('feeds', $this->prepare_sql('`id` = ?', $feed_id));
 		$action	= ($favicon) ? 'cache' : 'refresh';
@@ -3415,7 +3415,7 @@ PHP;
 	/**************************************************************************
 	 refresh_each()
 	 **************************************************************************/
-	function refresh_each($feed, $i = 1, $total = 1)
+	public function refresh_each($feed, $i = 1, $total = 1)
 	{
 		if (!$this->is_silent)
 		{
@@ -3454,7 +3454,7 @@ HTML;
 	/**************************************************************************
 	 refresh_complete()
 	 **************************************************************************/
-	function refresh_complete()
+	public function refresh_complete()
 	{
 		if (!$this->is_silent)
 		{
@@ -3474,7 +3474,7 @@ HTML;
 	/**************************************************************************
 	 refresh_feed()
 	 **************************************************************************/
-	function refresh_feed($feed_or_id)
+	public function refresh_feed($feed_or_id)
 	{
 		$force_complete_refresh = err();
 
@@ -3809,7 +3809,7 @@ HTML;
 	/**************************************************************************
 	 cache()
 	 **************************************************************************/
-	function cache()
+	public function cache()
 	{
 		// let it try, ico_to_png is only required for MobileSafari
 		/** /
@@ -3830,7 +3830,7 @@ HTML;
 	/**************************************************************************
 	 cache_each()
 	 **************************************************************************/
-	function cache_each($feed, $i = 1, $total = 1)
+	public function cache_each($feed, $i = 1, $total = 1)
 	{
 		if (!$this->is_silent)
 		{
@@ -3853,7 +3853,7 @@ HTML;
 	/**************************************************************************
 	 cache_complete()
 	 **************************************************************************/
-	function cache_complete()
+	public function cache_complete()
 	{
 		if (!$this->is_silent)
 		{
@@ -3873,7 +3873,7 @@ HTML;
 	/**************************************************************************
 	 cache_favicon()
 	 **************************************************************************/
-	function cache_favicon($feed)
+	public function cache_favicon($feed)
 	{
 		// let it try, ico_to_png is only required for MobileSafari
 		/** /
@@ -4015,7 +4015,7 @@ HTML;
 	/**************************************************************************
 	 empty_cache()
 	 **************************************************************************/
-	function empty_cache($confirm = false)
+	public function empty_cache($confirm = false)
 	{
 		if ($confirm)
 		{
@@ -4031,7 +4031,7 @@ HTML;
 	/**************************************************************************
 	 parse_item()
 	 **************************************************************************/
-	function parse_item($item_node, $feed)
+	public function parse_item($item_node, $feed)
 	{
 		$now 		= time();
 		$site_url 	= $feed['site_url'];
@@ -4249,7 +4249,7 @@ HTML;
 	/**************************************************************************
 	 parse_links()
 	 **************************************************************************/
-	function parse_links($item, $feed)
+	public function parse_links($item, $feed)
 	{
 		// debug($feed,'feed');
 
@@ -4375,7 +4375,7 @@ HTML;
 	/**************************************************************************
 	 parse_date()
 	 **************************************************************************/
-	function parse_date($date)
+	public function parse_date($date)
 	{
 		if (!isset($this->DateParser))
 		{
@@ -4389,7 +4389,7 @@ HTML;
 	/**************************************************************************
 	 parse_date_from_item()
 	 **************************************************************************/
-	function parse_date_from_item($item_node)
+	public function parse_date_from_item($item_node)
 	{
 		$date = 0;
 		$child_nodes = $item_node->children();
@@ -4414,7 +4414,7 @@ HTML;
 	/**************************************************************************
 	 weight_links()
 	 **************************************************************************/
-	function weight_links($feed)
+	public function weight_links($feed)
 	{
 		$link_weights 			= array();
 		$link_ids_by_weight		= array();
@@ -4471,7 +4471,7 @@ HTML;
 	/**************************************************************************
 	 blacklist()
 	**************************************************************************/
-	function blacklist()
+	public function blacklist()
 	{
 		$this->query("UPDATE `{$this->db['prefix']}links` SET `is_blacklisted`=0");
 
@@ -4518,7 +4518,7 @@ HTML;
 	/**************************************************************************
 	 build_blacklist_regexp()
 	**************************************************************************/
-	function build_blacklist_regexp()
+	public function build_blacklist_regexp()
 	{
 		static $blacklist_regexp;
 		if (!isset($blacklist_regexp))
@@ -4550,7 +4550,7 @@ HTML;
 	/**************************************************************************
 	 mark_*_as_*()
 	 **************************************************************************/
-	function mark_items_as_read($item_ids = array())
+	public function mark_items_as_read($item_ids = array())
 	{
 		if (!empty($item_ids))
 		{
@@ -4563,7 +4563,7 @@ HTML;
 		}
 	}
 
-	function mark_items_as_unread($item_ids = array())
+	public function mark_items_as_unread($item_ids = array())
 	{
 		if (!empty($item_ids))
 		{
@@ -4576,46 +4576,46 @@ HTML;
 		}
 	}
 
-	function mark_item_as_read($item_id)
+	public function mark_item_as_read($item_id)
 	{
 		$this->mark_items_as_read(array($item_id));
 	}
 
-	function mark_item_as_unread($item_id)
+	public function mark_item_as_unread($item_id)
 	{
 		$this->mark_items_as_unread(array($item_id));
 	}
 
-	function mark_item_as_saved($item_id)
+	public function mark_item_as_saved($item_id)
 	{
 		$update = $this->prepare_sql("UPDATE `{$this->db['prefix']}items` SET `is_saved` = 1 WHERE `id` = ?", $item_id);
 		$this->query($update);
 	}
 
-	function mark_item_as_unsaved($item_id)
+	public function mark_item_as_unsaved($item_id)
 	{
 		$update = $this->prepare_sql("UPDATE `{$this->db['prefix']}items` SET `is_saved` = 0 WHERE `id` = ?", $item_id);
 		$this->query($update);
 	}
 
-	function mark_link_as_saved($link_id)
+	public function mark_link_as_saved($link_id)
 	{
 		// create an item in the ghost Hot Links feed from the link_id
 	}
 
-	function mark_link_as_unsaved($link_id)
+	public function mark_link_as_unsaved($link_id)
 	{
 		// delete item from the ghost Hot Links feed
 		// trouble is how do we get the item_id from the link_id?
 	}
 
-	function mark_feed_as_read($feed_id, $before)
+	public function mark_feed_as_read($feed_id, $before)
 	{
 		$update = $this->prepare_sql("UPDATE `{$this->db['prefix']}items` SET `read_on_time` = ? WHERE `feed_id` = ? AND `read_on_time` = 0 AND `added_on_time` < ?", time(), $feed_id, $before);
 		$this->query($update);
 	}
 
-	function mark_group_as_read($group_id, $before)
+	public function mark_group_as_read($group_id, $before)
 	{
 		$where = '`read_on_time` = 0 AND `added_on_time` < '.$before;
 
@@ -4645,19 +4645,19 @@ HTML;
 		$this->query($update);
 	}
 
-	function mark_feed_as_spark($feed_id)
+	public function mark_feed_as_spark($feed_id)
 	{
 		$update = $this->prepare_sql("UPDATE `{$this->db['prefix']}feeds` SET `is_spark` = 1 WHERE `id` = ?", $feed_id);
 		$this->query($update);
 	}
 
-	function mark_feed_as_unspark($feed_id)
+	public function mark_feed_as_unspark($feed_id)
 	{
 		$update = $this->prepare_sql("UPDATE `{$this->db['prefix']}feeds` SET `is_spark` = 0 WHERE `id` = ?", $feed_id);
 		$this->query($update);
 	}
 
-	function mark_feeds_as_sparks($feed_ids = array())
+	public function mark_feeds_as_sparks($feed_ids = array())
 	{
 		// mark all as not spark
 		$this->query("UPDATE `{$this->db['prefix']}feeds` SET `is_spark` = 0");
@@ -4672,7 +4672,7 @@ HTML;
 	/**************************************************************************
 	 unread_recently_read()
 	 **************************************************************************/
-	function unread_recently_read()
+	public function unread_recently_read()
 	{
 		$feed_ids 	= array();
 		if ($this->prefs['ui']['section'] != 3)
@@ -4701,7 +4701,7 @@ HTML;
 	/**************************************************************************
 	 title()
 	 **************************************************************************/
-	function title($feed)
+	public function title($feed)
 	{
 		return (!empty($feed['title'])) ? $feed['title'] : normalize_url($feed['url']);
 	}
@@ -4709,7 +4709,7 @@ HTML;
 	/**************************************************************************
 	 content()
 	 **************************************************************************/
-	function content($item_description, $item_excerpts, $item_allows, $prevents_hotlinking = false)
+	public function content($item_description, $item_excerpts, $item_allows, $prevents_hotlinking = false)
 	{
 		if ($item_excerpts)
 		{
@@ -4755,7 +4755,7 @@ HTML;
 	/**************************************************************************
 	 highlight()
 	 **************************************************************************/
-	function highlight($str)
+	public function highlight($str)
 	{
 		if ($this->prefs['ui']['section'] == 4)
 		{
@@ -4782,7 +4782,7 @@ HTML;
 	/**************************************************************************
 	 option()
 	 **************************************************************************/
-	function option($option_name, $feed_id = 0, $group_id = null)
+	public function option($option_name, $feed_id = 0, $group_id = null)
 	{
 		$this->relationships();
 
@@ -4827,7 +4827,7 @@ HTML;
 	/**************************************************************************
 	 favicon_class()
 	 **************************************************************************/
-	function favicon_class($feed)
+	public function favicon_class($feed)
 	{
 		$class = 'f'.$feed['favicon_id'];
 		if ($feed['favicon_id'] <= 1)
@@ -4846,7 +4846,7 @@ HTML;
 	/**************************************************************************
 	 override_link()
 	 **************************************************************************/
-	function override_link() {
+	public function override_link() {
 
 		$file = 'override';
 		if ($this->is_mobile) $file .= '-mobile';
@@ -4864,7 +4864,7 @@ HTML;
 	/**************************************************************************
 	 feedlet_link()
 	 **************************************************************************/
-	function feedlet_link()
+	public function feedlet_link()
 	{
 		$paths = $this->install_paths();
 		$html = <<<HTML
@@ -4881,7 +4881,7 @@ HTML;
 	/**************************************************************************
 	 subscribe_link()
 	 **************************************************************************/
-	function subscribe_link()
+	public function subscribe_link()
 	{
 		$paths = $this->install_paths();
 		return $paths['full'].'/?subscribe&url=';
@@ -4890,7 +4890,7 @@ HTML;
 	/**************************************************************************
 	 relationships()
 	 **************************************************************************/
-	function relationships($rebuild = false)
+	public function relationships($rebuild = false)
 	{
 		if (empty($this->groups) || $rebuild)
 		{
@@ -5163,7 +5163,7 @@ HTML;
 	/**************************************************************************
 	 build_links()
 	 **************************************************************************/
-	function build_links()
+	public function build_links()
 	{
 		$day		= 24 * 60 * 60;
 		$scale 		= 1.25;
@@ -5467,7 +5467,7 @@ HTML;
 	/**************************************************************************
 	 build_items()
 	 **************************************************************************/
-	function build_items()
+	public function build_items()
 	{
 		// a feed can only be selected if we're displaying it
 		if (!in($this->feed_ids, $this->prefs['ui']['feed_id']))

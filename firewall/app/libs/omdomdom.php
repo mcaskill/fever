@@ -5,7 +5,7 @@
 
 class OMDOMDOM
 {
-	function parse($xml)
+	public static function parse($xml)
 	{
 		global $__OMDOMDOM_nodes;
 		$__OMDOMDOM_nodes = array();
@@ -253,31 +253,31 @@ class OMDOMDOM
 
 class OMDOMDOMNode
 {
-	var $__node_id;
+	protected $__node_id;
 
-	function __construct($node_id)
+	public function __construct($node_id)
 	{
 		$this->__node_id = $node_id;
 	}
 
-	function __node()
+	public function __node()
 	{
 		global $__OMDOMDOM_nodes;
 		return $__OMDOMDOM_nodes[$this->__node_id];
 	}
 
-	function has_attr($attr)
+	public function has_attr($attr)
 	{
 		global $__OMDOMDOM_nodes;
 		return isset($__OMDOMDOM_nodes[$this->__node_id][$attr]);
 	}
 
-	function get_node_name()
+	public function get_node_name()
 	{
 		return $this->get_attr('_node_name');
 	}
 
-	function get_attr($attr)
+	public function get_attr($attr)
 	{
 		global $__OMDOMDOM_nodes;
 		$node = $__OMDOMDOM_nodes[$this->__node_id];
@@ -289,23 +289,23 @@ class OMDOMDOMNode
 		return $value;
 	}
 
-	function set_attr($attr, $value)
+	public function set_attr($attr, $value)
 	{
 		global $__OMDOMDOM_nodes;
 		$__OMDOMDOM_nodes[$this->__node_id][$attr] = $value;
 	}
 
-	function get_child_nodes($__node_id_only = false)
+	public function get_child_nodes($__node_id_only = false)
 	{
 		return $this->get_descendant_nodes(true, $__node_id_only);
 	}
 
-	function children($__node_id_only = false)
+	public function children($__node_id_only = false)
 	{
 		return $this->get_child_nodes($__node_id_only);
 	}
 
-	function get_parent_node()
+	public function get_parent_node()
 	{
 		global $__OMDOMDOM_nodes;
 		$node = $__OMDOMDOM_nodes[$this->__node_id];
@@ -317,12 +317,12 @@ class OMDOMDOMNode
 		return $parent;
 	}
 
-	function parent()
+	public function parent()
 	{
 		return $this->get_parent_node();
 	}
 
-	function get_descendant_nodes($__children_only = false, $__node_id_only = false)
+	public function get_descendant_nodes($__children_only = false, $__node_id_only = false)
 	{
 		global $__OMDOMDOM_nodes;
 
@@ -344,7 +344,7 @@ class OMDOMDOMNode
 		return $nodes;
 	}
 
-	function get_nodes_by($attr, $value = '', $__children_only = false)
+	public function get_nodes_by($attr, $value = '', $__children_only = false)
 	{
 		global $__OMDOMDOM_nodes;
 
@@ -367,22 +367,22 @@ class OMDOMDOMNode
 		return $matching_nodes;
 	}
 
-	function get_nodes_by_name($node_name)
+	public function get_nodes_by_name($node_name)
 	{
 		return $this->get_nodes_by('_node_name', $node_name);
 	}
 
-	function get_child_nodes_by($attr, $value = '')
+	public function get_child_nodes_by($attr, $value = '')
 	{
 		return $this->get_nodes_by($attr, $value, true);
 	}
 
-	function get_child_nodes_by_name($node_name)
+	public function get_child_nodes_by_name($node_name)
 	{
 		return $this->get_child_nodes_by('_node_name', $node_name);
 	}
 
-	function inner_content()
+	public function inner_content()
 	{
 		global $__OMDOMDOM_nodes;
 		$node = $__OMDOMDOM_nodes[$this->__node_id];
@@ -417,7 +417,7 @@ class OMDOMDOMNode
 		return $inner_content;
 	}
 
-	function outer_content()
+	public function outer_content()
 	{
 		global $__OMDOMDOM_nodes;
 		$node = $__OMDOMDOM_nodes[$this->__node_id];
@@ -457,9 +457,8 @@ class OMDOMDOMNode
 		return $outer_content;
 	}
 
-	function inner_text()
+	public function inner_text()
 	{
 		return trim(preg_replace('#\s+#', ' ', strip_tags_sane($this->inner_content())));
 	}
 }
-

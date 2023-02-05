@@ -3,14 +3,14 @@
  PDO/MySQL implementation
  **************************************************************************/
 class SIDB_PDO_MySQL extends SIDB {
-	var $api = 'PDO/MySQL';
-	var $pdo = null; // :PDO
+	public $api		= 'PDO/MySQL';
+	protected $pdo	= null; // :PDO
 
-	function set_error() {
+	public function set_error() {
 		list($e, $errno, $error) = $this->pdo->errorInfo();
 		$this->error = "{$this->api} Error ({$errno}): {$error}".' (SQL:'.$this->sql.')';
 	}
-	function connect($database='', $username='', $password='', $server='localhost') {
+	public function connect($database='', $username='', $password='', $server='localhost') {
 		$server = $this->parse_server($server);
 
 		$dsn = 'mysql:';
@@ -33,16 +33,16 @@ class SIDB_PDO_MySQL extends SIDB {
 			$this->error = $this->api.' Error ('.$e->getCode().'): '.$e->getMessage();
 		}
 	}
-	function close() {
+	public function close() {
 		$this->pdo = null;
 		$this->is_connected = false;
 		$this->error = false;
 	}
-	function quote($str) {
+	public function quote($str) {
 		if (!$this->is_connected) return "''";
 		return $this->pdo->quote($str);
 	}
-	function query($sql) {
+	public function query($sql) {
 		if (!$this->is_connected) return false;
 
 		// See http://br2.php.net/manual/en/pdo.query.php (paragraph
@@ -60,7 +60,7 @@ class SIDB_PDO_MySQL extends SIDB {
 
 		return !$this->error;
 	}
-	function rows() {
+	public function rows() {
 		$rows = array();
 
 		if ($this->result!==false)
@@ -78,17 +78,17 @@ class SIDB_PDO_MySQL extends SIDB {
 		}
 		return $rows;
 	}
-	function affected_rows() {
+	public function affected_rows() {
 		return $this->result->rowCount();
 	}
-	function insert_id() {
+	public function insert_id() {
 		return $this->pdo->lastInsertId();
 	}
-	function client_version() {
+	public function client_version() {
 		if (!$this->is_connected) return '0.0.0';
 		return $this->pdo->getAttribute(PDO::ATTR_CLIENT_VERSION);
 	}
-	function server_version() {
+	public function server_version() {
 		if (!$this->is_connected) return '0.0.0';
 		return $this->pdo->getAttribute(PDO::ATTR_SERVER_VERSION);
 	}
@@ -98,13 +98,13 @@ class SIDB_PDO_MySQL extends SIDB {
  MySQL Improved implementation
  **************************************************************************/
 class SIDB_MySQLi extends SIDB {
-	var $api 	= 'MySQL Improved';
-	var $mysqli	= null; // :mysqli
+	public $api 		= 'MySQL Improved';
+	protected $mysqli	= null; // :mysqli
 
-	function set_error() {
+	public function set_error() {
 		$this->error = $this->api.' Error ('.$this->mysqli->errno.'): '.$this->mysqli->error.' (SQL:'.$this->sql.')';
 	}
-	function connect($database='', $username='', $password='', $server='localhost') {
+	public function connect($database='', $username='', $password='', $server='localhost') {
 		$server = $this->parse_server($server);
 
 		if (($this->mysqli = @mysqli_connect($server['host'], $username, $password, $database, $server['port'], $server['socket']))!==false) {
@@ -114,7 +114,7 @@ class SIDB_MySQLi extends SIDB {
 			$this->error = $this->api.' Error ('.mysqli_connect_errno().'): '.mysqli_connect_error();
 		}
 	}
-	function close() {
+	public function close() {
 		if (!$this->is_connected) return;
 
 		$this->mysqli->close();
@@ -122,11 +122,11 @@ class SIDB_MySQLi extends SIDB {
 		$this->is_connected = false;
 		$this->error = false;
 	}
-	function quote($str) {
+	public function quote($str) {
 		if (!$this->is_connected) return "''";
 		return "'".$this->mysqli->real_escape_string($str)."'";
 	}
-	function query($sql) {
+	public function query($sql) {
 		if (!$this->is_connected) return false;
 
 		$this->error = false;
@@ -137,7 +137,7 @@ class SIDB_MySQLi extends SIDB {
 
 		return !$this->error;
 	}
-	function rows() {
+	public function rows() {
 		$rows = array();
 
 		if ($this->result!==false)
@@ -154,17 +154,17 @@ class SIDB_MySQLi extends SIDB {
 		}
 		return $rows;
 	}
-	function affected_rows() {
+	public function affected_rows() {
 		return $this->mysqli->affected_rows;
 	}
-	function insert_id() {
+	public function insert_id() {
 		return $this->mysqli->insert_id;
 	}
-	function client_version() {
+	public function client_version() {
 		if (!$this->is_connected) return '0.0.0';
 		return $this->mysqli->client_info;
 	}
-	function server_version() {
+	public function server_version() {
 		if (!$this->is_connected) return '0.0.0';
 		return $this->mysqli->server_info;
 	}
