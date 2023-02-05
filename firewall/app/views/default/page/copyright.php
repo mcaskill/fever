@@ -1,2 +1,2 @@
 <a href="http://feedafever.com" rel="external">Fever</a> <?php e($this->formatted_version()); ?> &copy; 2007&ndash;<?php e(gmdate('Y')); ?> <a href="http://shauninman.com/" rel="external">Shaun Inman</a>. All rights reserved.<br>
-Available at <a href="http://feedafever.com" rel="external">feedafever.com</a>.
+Available at <a href="https://github.com/mcaskill/fever" rel="external">github.com/mcaskill/fever</a>.

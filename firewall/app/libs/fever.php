@@ -2288,8 +2288,12 @@ PHP;
 			$this->cfg['updates']['last_checked_on_time'] = $now;
 			$this->save();
 
+			/*#@+
 			$response = $this->gateway_request('Version');
-			$current_version = $response['body'] + 0;
+			$current_version = (int) $response['body'];
+			*/
+			$current_version = $this->version;
+			/*#@-*/
 
 			if ($this->cfg['updates']['last_checked_version'] < $current_version)
 			{
@@ -2316,6 +2320,11 @@ PHP;
 			!$this->is_development_copy()
 		)
 		{
+			$this->error('Updates are disabled for '.$this->app_name);
+			$this->render('errors');
+			$this->close();
+
+			/*#@+
 			$paths		= $this->install_paths();
 
 			global $REQUEST_TIMEOUT;
@@ -2391,6 +2400,7 @@ PHP;
 			}
 			rm(FIREWALL_ROOT.'tmp');
 			redirect_to('./');
+			#@-*/
 		}
 	}
 
@@ -2525,9 +2535,11 @@ PHP;
 			$this->query("ALTER TABLE `{$this->db['prefix']}feeds` CHANGE `site_url` `site_url` varchar(255) default NULL, CHANGE `last_refreshed_on_time` `last_refreshed_on_time` int(10) unsigned NOT NULL default '0', CHANGE `last_updated_on_time` `last_updated_on_time` int(10) unsigned NOT NULL default '0'");
 		}
 
+		/*#@+
 		if ($this->cfg['version'] < 136) {
 			$this->gateway_request('Version'); // first capabilities report
 		}
+		#@-*/
 
 		// save the update
 		$this->cfg['updates']['last_updated_on_time'] = time(); // added v038

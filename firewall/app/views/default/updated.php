@@ -7,6 +7,6 @@
 <?php endif; ?>
 </h1>
 <h2>Fever <?php e($this->vars['last_updated_manually'] ? 'has been' : 'was')?> updated to <?php e($this->formatted_version()); ?> successfully.</h2>
-<p class="text">Check the <a href="http://feedafever.com/todone.txt">changelog</a>.</p>
+<p class="text">Check the <a href="https://github.com/mcaskill/fever/blob/main/CHANGELOG.md">changelog</a>.</p>
 <p class="btn-row"><a class="btn text default" href="<?php e(errors_url('./')); ?>">Okay<i></i></a></p>
 <?php $this->render('page/footer');?>

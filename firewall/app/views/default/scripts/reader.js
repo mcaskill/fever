@@ -1090,7 +1090,9 @@ Fever.Reader =
 		{
 			// alert('TODO: save link');
 			return;
+			/*#@+
 			XHR.get('./?manage=statuses&mark=link&as=' + state + '&id=' + linkId);
+			#@-*/
 		};
 
 		if (state == 'saved')
