@@ -2180,7 +2180,7 @@ PHP;
 	function is_development_copy()
 	{
 		$paths = $this->install_paths();
-		return ($paths['trim'] == 'localhost' || $paths['trim'] == 'scratch.dev') ? true : false;
+		return (bool) m('/^localhost|\.test$/', '', $paths['trim']);
 	}
 
 	/**************************************************************************
