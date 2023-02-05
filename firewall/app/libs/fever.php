@@ -4141,7 +4141,7 @@ HTML;
 					$node_name = $node->get_node_name();
 					if (!empty($item['description']) && ($node_name == 'summary' || $node_name == 'description'))
 					{
-						continue;
+						break;
 					}
 
 					if (!empty($content))
