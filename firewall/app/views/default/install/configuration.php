@@ -1,7 +1,7 @@
 <?php $this->render('page/header');?>
 <form method="post" action="<?php e(errors_url('./'));?>">
 	<input type="hidden" name="action" value="install" />
-	<input type="hidden" name="activation_key" value="<?php e(prevent_xss(strip_slashes($_POST['activation_key']))); ?>" />
+	<input type="hidden" name="activation_key" value="<?php e(prevent_xss($_POST['activation_key'])); ?>" />
 	<h1>Installation</h1>
 	<h2>Create a login</h2>
 

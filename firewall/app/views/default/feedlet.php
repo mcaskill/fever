@@ -21,8 +21,6 @@ $feeds_by_checksum	= key_remap('url_checksum', $this->feeds);
 // new feedlet
 if (isset($_GET['feeds']) && !empty($_GET['feeds']))
 {
-	$_GET = array_strip_slashes($_GET);
-
 	if (isset($_GET['title']) && !empty($_GET['title']))
 	{
 		$title = $_GET['title'];

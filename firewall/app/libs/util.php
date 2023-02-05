@@ -202,37 +202,6 @@ function checksum($value)
 	return sprintf('%u', crc32($value));
 }
 
-/**************************************************************************
- strip_slashes()
-
- Strips slashes if magic_quotes_gpc is on.
- **************************************************************************/
-function strip_slashes($str)
-{
-	if (get_magic_quotes_gpc())
-	{
-		$str = stripslashes($str);
-	}
-	return $str;
-}
-
-/**************************************************************************
- array_strip_slashes()
-
- Recursively strips slashes from the values of an array.
- **************************************************************************/
-function array_strip_slashes($array)
-{
-	if (get_magic_quotes_gpc())
-	{
-		foreach ($array as $key => $value)
-		{
-			$array[$key] = (is_array($value)) ? array_strip_slashes($value) : stripslashes($value);
-		}
-	}
-	return $array;
-}
-
 /******************************************************************************
  array_to_query()
 

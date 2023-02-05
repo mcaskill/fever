@@ -69,7 +69,7 @@ class SIDB_PDO_MySQL extends SIDB {
 				foreach ($aRow as $key => $value)
 				{
 					if (is_int($key)) continue;
-					$row[$key] = $this->strip_slashes($value);
+					$row[$key] = $value;
 				}
 				$rows[] = $row;
 			}
@@ -144,7 +144,7 @@ class SIDB_MySQLi extends SIDB {
 			{
 				foreach ($row as $key => $value)
 				{
-					$row[$key] = $this->strip_slashes($value);
+					$row[$key] = $value;
 				}
 				$rows[] = $row;
 			}

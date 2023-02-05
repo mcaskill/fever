@@ -322,9 +322,6 @@ class Fever
 	 **************************************************************************/
 	function Fever()
 	{
-		$_GET 	= array_strip_slashes($_GET);
-		$_POST 	= array_strip_slashes($_POST);
-
 		$this->db['server']		= FEVER_DB_SERVER;
 		$this->db['database'] 	= FEVER_DB_DATABASE;
 		$this->db['username'] 	= FEVER_DB_USERNAME;

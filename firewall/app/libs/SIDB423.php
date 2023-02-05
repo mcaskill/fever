@@ -104,13 +104,6 @@ class SIDB {
 		}
 		return $sql;
 	}
-	function strip_slashes($str) { // :string
-		if (get_magic_quotes_gpc())
-		{
-			$str = stripslashes($str);
-		}
-		return $str;
-	}
 
 	// abstract methods
 	function set_error() {
@@ -212,7 +205,7 @@ class SIDB_MySQL extends SIDB {
 			{
 				foreach ($row as $key => $value)
 				{
-					$row[$key] = $this->strip_slashes($value);
+					$row[$key] = $value;
 				}
 				$rows[] = $row;
 			}
