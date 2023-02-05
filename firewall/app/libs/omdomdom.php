@@ -184,7 +184,7 @@ class OMDOMDOM
 				}
 			}
 
-			if (!empty($tag_name) && $tag_name{0} == '#' && isset($hashes[$tag_name]) && isset($attrs['hash']))
+			if (!empty($tag_name) && $tag_name[0] == '#' && isset($hashes[$tag_name]) && isset($attrs['hash']))
 			{
 				$cdata = $hashes[$tag_name][$attrs['hash']];
 				$attrs = array('_node_content' => $cdata);
@@ -388,7 +388,7 @@ class OMDOMDOMNode
 		$node = $__OMDOMDOM_nodes[$this->__node_id];
 
 		$inner_content = '';
-		if ($node['_node_name']{0} == '#' && isset($node['_node_content']))
+		if ($node['_node_name'][0] == '#' && isset($node['_node_content']))
 		{
 			// handle unencoded CDATA in a content:encoded element
 			if ($node['_node_name'] == '#cdata')
@@ -422,7 +422,7 @@ class OMDOMDOMNode
 		global $__OMDOMDOM_nodes;
 		$node = $__OMDOMDOM_nodes[$this->__node_id];
 		$self_closing = isset($node['_node_self_closing']);
-		$has_tags = ($node['_node_name']{0} != '#');
+		$has_tags = ($node['_node_name'][0] != '#');
 
 		$outer_content = '';
 		if ($has_tags)

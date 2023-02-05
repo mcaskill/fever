@@ -35,7 +35,7 @@ $alpha = array
 <?php
 $feed = $this->feeds[$id];
 $feed_title = lt($this->title($feed));
-$char = up($feed_title{0});
+$char = up($feed_title[0]);
 $count_label = ($this->prefs['ui']['section'] == 2) ? 'saved' : (($this->prefs['ui']['section'] == 4) ? 'search' : 'unread');
 $class = (!$feed['unread_count'] && ($this->prefs['ui']['section'] != 2 && $this->prefs['ui']['section'] != 4)) ? ' read' : ' unread';
 $class .= (!$feed['total_items'] && $feed['id'] != 0) ? ' abandoned' : '';
