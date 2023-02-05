@@ -320,7 +320,7 @@ class Fever
 	/**************************************************************************
 	 Fever()
 	 **************************************************************************/
-	function Fever()
+	function __construct()
 	{
 		$this->db['server']		= FEVER_DB_SERVER;
 		$this->db['database'] 	= FEVER_DB_DATABASE;

@@ -255,7 +255,7 @@ class OMDOMDOMNode
 {
 	var $__node_id;
 
-	function OMDOMDOMNode($node_id)
+	function __construct($node_id)
 	{
 		$this->__node_id = $node_id;
 	}
