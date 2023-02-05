@@ -20,8 +20,7 @@
 		</form>
 
 		<div class="footer">
-			<a href="http://feedafever.com" rel="external">Fever</a> <?php e($this->formatted_version()); ?> &copy; 2007&ndash;<?php e(gmdate('Y')); ?> <a href="http://shauninman.com/" rel="external">Shaun Inman</a>. All rights reserved.
-			Available at <a href="http://feedafever.com" rel="external">feedafever.com</a>.
+			<?php $this->render('page/copyright'); ?>
 		</div>
 
 	</div>
