@@ -1,9 +1,11 @@
 <?php
 /**
  * SimplePie
- * Date Parser
  *
- * Copyright (c) 2004-2007, Ryan Parman and Geoffrey Sneddon
+ * A PHP-Based RSS and Atom Feed Framework.
+ * Takes the hard work out of managing a complete RSS/Atom solution.
+ *
+ * Copyright (c) 2004-2016, Ryan Parman, Sam Sneddon, Ryan McCue, and contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
@@ -31,6 +33,21 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @package SimplePie
+ * @version 1.5.8
+ * @copyright 2004-2016 Ryan Parman, Sam Sneddon, Ryan McCue
+ * @author Ryan Parman
+ * @author Sam Sneddon
+ * @author Ryan McCue
+ * @link http://simplepie.org/ SimplePie
+ * @license http://www.opensource.org/licenses/bsd-license.php BSD License
+ */
+
+
+/**
+ * Date Parser
+ *
+ * @package SimplePie
+ * @subpackage Parsing
  */
 class SimplePie_Parse_Date
 {
@@ -82,12 +99,20 @@ class SimplePie_Parse_Date
 		'dimanche' => 7,
 		// German
 		'montag' => 1,
+		'mo' => 1,
 		'dienstag' => 2,
+		'di' => 2,
 		'mittwoch' => 3,
+		'mi' => 3,
 		'donnerstag' => 4,
+		'do' => 4,
 		'freitag' => 5,
+		'fr' => 5,
 		'samstag' => 6,
+		'sa' => 6,
 		'sonnabend' => 6,
+		// AFAIK no short form for sonnabend
+		'so' => 7,
 		'sonntag' => 7,
 		// Italian
 		'lunedì' => 1,
@@ -129,6 +154,14 @@ class SimplePie_Parse_Date
 		'Παρ' => 5,
 		'Σαβ' => 6,
 		'Κυρ' => 7,
+		// Russian
+		'Пн.' => 1,
+		'Вт.' => 2,
+		'Ср.' => 3,
+		'Чт.' => 4,
+		'Пт.' => 5,
+		'Сб.' => 6,
+		'Вс.' => 7,
 	);
 
 	/**
@@ -156,7 +189,7 @@ class SimplePie_Parse_Date
 		'aug' => 8,
 		'august' => 8,
 		'sep' => 9,
-		'september' => 8,
+		'september' => 9,
 		'oct' => 10,
 		'october' => 10,
 		'nov' => 11,
@@ -191,17 +224,28 @@ class SimplePie_Parse_Date
 		'décembre' => 12,
 		// German
 		'januar' => 1,
+		'jan' => 1,
 		'februar' => 2,
+		'feb' => 2,
 		'märz' => 3,
+		'mär' => 3,
 		'april' => 4,
-		'mai' => 5,
+		'apr' => 4,
+		'mai' => 5, // no short form for may
 		'juni' => 6,
+		'jun' => 6,
 		'juli' => 7,
+		'jul' => 7,
 		'august' => 8,
+		'aug' => 8,
 		'september' => 9,
+		'sep' => 9,
 		'oktober' => 10,
+		'okt' => 10,
 		'november' => 11,
+		'nov' => 11,
 		'dezember' => 12,
+		'dez' => 12,
 		// Italian
 		'gennaio' => 1,
 		'febbraio' => 2,
@@ -274,6 +318,32 @@ class SimplePie_Parse_Date
 		'Οκτ' => 10,
 		'Νοέ' => 11,
 		'Δεκ' => 12,
+		// Russian
+		'Янв' => 1,
+		'января' => 1,
+		'Фев' => 2,
+		'февраля' => 2,
+		'Мар' => 3,
+		'марта' => 3,
+		'Апр' => 4,
+		'апреля' => 4,
+		'Май' => 5,
+		'мая' => 5,
+		'Июн' => 6,
+		'июня' => 6,
+		'Июл' => 7,
+		'июля' => 7,
+		'Авг' => 8,
+		'августа' => 8,
+		'Сен' => 9,
+		'сентября' => 9,
+		'Окт' => 10,
+		'октября' => 10,
+		'Ноя' => 11,
+		'ноября' => 11,
+		'Дек' => 12,
+		'декабря' => 12,
+
 	);
 
 	/**
@@ -314,6 +384,7 @@ class SimplePie_Parse_Date
 		'CCT' => 23400,
 		'CDT' => -18000,
 		'CEDT' => 7200,
+		'CEST' => 7200,
 		'CET' => 3600,
 		'CGST' => -7200,
 		'CGT' => -10800,
@@ -522,28 +593,15 @@ class SimplePie_Parse_Date
 	 *
 	 * @access private
 	 */
-	function SimplePie_Parse_Date()
+	public function __construct()
 	{
-		$this->day_pcre = '(' . implode(array_keys($this->day), '|') . ')';
-		$this->month_pcre = '(' . implode(array_keys($this->month), '|') . ')';
+		$this->day_pcre = '(' . implode('|', array_keys($this->day)) . ')';
+		$this->month_pcre = '(' . implode('|', array_keys($this->month)) . ')';
 
 		static $cache;
 		if (!isset($cache[get_class($this)]))
 		{
-			if (extension_loaded('Reflection'))
-			{
-				$class = new ReflectionClass(get_class($this));
-				$methods = $class->getMethods();
-				$all_methods = array();
-				foreach ($methods as $method)
-				{
-					$all_methods[] = $method->getName();
-				}
-			}
-			else
-			{
-				$all_methods = get_class_methods($this);
-			}
+			$all_methods = get_class_methods($this);
 
 			foreach ($all_methods as $method)
 			{
@@ -565,7 +623,7 @@ class SimplePie_Parse_Date
 	 *
 	 * @access public
 	 */
-	function get()
+	public static function get()
 	{
 		static $object;
 		if (!$object)
@@ -583,7 +641,7 @@ class SimplePie_Parse_Date
 	 * @param string $date Date to parse
 	 * @return int Timestamp corresponding to date string, or false on failure
 	 */
-	function parse($date)
+	public function parse($date)
 	{
 		foreach ($this->user as $method)
 		{
@@ -611,7 +669,7 @@ class SimplePie_Parse_Date
 	 * @access public
 	 * @param callback $callback
 	 */
-	function add_callback($callback)
+	public function add_callback($callback)
 	{
 		if (is_callable($callback))
 		{
@@ -626,12 +684,12 @@ class SimplePie_Parse_Date
 	/**
 	 * Parse a superset of W3C-DTF (allows hyphens and colons to be omitted, as
 	 * well as allowing any of upper or lower case "T", horizontal tabs, or
-	 * spaces to be used as the time seperator (including more than one))
+	 * spaces to be used as the time separator (including more than one))
 	 *
 	 * @access protected
 	 * @return int Timestamp
 	 */
-	function date_w3cdtf($date)
+	public function date_w3cdtf($date)
 	{
 		static $pcre;
 		if (!$pcre)
@@ -686,14 +744,12 @@ class SimplePie_Parse_Date
 			}
 
 			// Convert the number of seconds to an integer, taking decimals into account
-			$second = round($match[6] + $match[7] / pow(10, strlen($match[7])));
+			$second = round((int)$match[6] + (int)$match[7] / (10 ** strlen($match[7])));
 
 			return gmmktime($match[4], $match[5], $second, $match[2], $match[3], $match[1]) - $timezone;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**
@@ -703,7 +759,7 @@ class SimplePie_Parse_Date
 	 * @param string $data Data to strip comments from
 	 * @return string Comment stripped string
 	 */
-	function remove_rfc2822_comments($string)
+	public function remove_rfc2822_comments($string)
 	{
 		$string = (string) $string;
 		$position = 0;
@@ -716,7 +772,7 @@ class SimplePie_Parse_Date
 		{
 			$output .= substr($string, $position, $pos - $position);
 			$position = $pos + 1;
-			if ($string[$pos - 1] !== '\\')
+			if ($pos === 0 || $string[$pos - 1] !== '\\')
 			{
 				$depth++;
 				while ($depth && $position < $length)
@@ -763,7 +819,7 @@ class SimplePie_Parse_Date
 	 * @access protected
 	 * @return int Timestamp
 	 */
-	function date_rfc2822($date)
+	public function date_rfc2822($date)
 	{
 		static $pcre;
 		if (!$pcre)
@@ -844,10 +900,8 @@ class SimplePie_Parse_Date
 
 			return gmmktime($match[5], $match[6], $second, $month, $match[2], $match[4]) - $timezone;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**
@@ -856,7 +910,7 @@ class SimplePie_Parse_Date
 	 * @access protected
 	 * @return int Timestamp
 	 */
-	function date_rfc850($date)
+	public function date_rfc850($date)
 	{
 		static $pcre;
 		if (!$pcre)
@@ -909,10 +963,8 @@ class SimplePie_Parse_Date
 
 			return gmmktime($match[5], $match[6], $match[7], $month, $match[2], $match[4]) - $timezone;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**
@@ -921,7 +973,7 @@ class SimplePie_Parse_Date
 	 * @access protected
 	 * @return int Timestamp
 	 */
-	function date_asctime($date)
+	public function date_asctime($date)
 	{
 		static $pcre;
 		if (!$pcre)
@@ -951,10 +1003,8 @@ class SimplePie_Parse_Date
 			$month = $this->month[strtolower($match[2])];
 			return gmmktime($match[4], $match[5], $match[6], $month, $match[3], $match[7]);
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**
@@ -963,17 +1013,14 @@ class SimplePie_Parse_Date
 	 * @access protected
 	 * @return int Timestamp
 	 */
-	function date_strtotime($date)
+	public function date_strtotime($date)
 	{
 		$strtotime = strtotime($date);
 		if ($strtotime === -1 || $strtotime === false)
 		{
 			return false;
 		}
-		else
-		{
-			return $strtotime;
-		}
+
+		return $strtotime;
 	}
 }
-
