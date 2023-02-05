@@ -449,7 +449,7 @@ class Fever
 	 **************************************************************************/
 	public function reset_errors()
 	{
-		$data = get_class_vars('Fever');
+		$data = get_class_vars(static::class);
 		$this->errors = $data['errors'];
 	}
 
@@ -2163,7 +2163,7 @@ PHP;
 		if ($confirm)
 		{
 			$this->query("DROP TABLE `{$this->db['prefix']}".implode("`, `{$this->db['prefix']}", array_keys($this->manifest))."`");
-			$data = get_class_vars('Fever');
+			$data = get_class_vars(static::class);
 			$this->cfg 		= $data['cfg'];
 			$this->prefs 	= $data['prefs'];
 		}
@@ -2428,7 +2428,7 @@ PHP;
 		// files have been updated
 		// update database or customize updated files
 
-		$data = get_class_vars('Fever');
+		$data = get_class_vars(static::class);
 
 		if ($this->cfg['version'] < 32)
 		{
