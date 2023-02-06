@@ -4,6 +4,29 @@ This document contains the full history of Fever.
 
 Note that this repository's codebase only contains a copy of v1.39.
 
+## v1.40 (2023-02-08)
+
+- Disabled gateway requests to feedafever.com
+- Replaced URL to `todone.txt` with git repository's `CHANGELOG.md`
+- Move copyright from default and mobile page footer views to its own view file
+- Update `DOCTYPE` and HTML meta tags and fix CSS styles
+- Replace usage of class-string with `::class` constant in `Fever` class
+- Add visibility and static keyword to classes to PHP files
+- Fix parsing of "set-cookie" response header
+- Fix mixing strings and integers
+- Update third-party libraries:
+  - Update PCLZip 2.6.0 → 2.8.3
+  - Update SimplePie ~1.1.0 → 1.5.8
+- Update PHP compatibility:
+  - Avoid throwing PDO exceptions; the default as of PHP 8.0
+  - Fix optional arguments; deprecated in PHP 8.0
+  - Replace `join()` with `implode()` and fix parameter order; deprecated in PHP 7.4
+  - Replace curly braces for offset access; deprecated in PHP 7.4
+  - Fix switch break; deprecated in PHP 7.3
+  - Rename constructors; deprecated in PHP 7.0
+  - Remove magic quotes; deprecated in PHP 5.4
+- Update `is_development_copy()` to replace `.dev` with `.test` since the former became a real TLD in 2019
+
 ## v1.39 (2014-09-22)
 
 - updated mobile CSS for the iPhones 6
