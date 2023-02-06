@@ -288,7 +288,11 @@ i.icon,
 i.favicon,
 i.favicon i
 {
+	/*#@+
 	display: inline-block;
+	*/
+	display: block;
+	/*#@-*/
 	vertical-align: middle;
 	width: 16px;
 	height: 16px;
@@ -492,7 +496,7 @@ li.target .icon
 {
 	line-height: 18px;
 	/* reversing nesting of sliding doors */
-	display: inline-block;
+	/*#@+display: inline-block;#@-*/
 	background-position: 0 0;
 	padding: 0 3px 0 32px;
 }
