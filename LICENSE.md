@@ -1,4 +1,4 @@
-Copyright © 2008-2017 Shaun Inman.
+Copyright © 2008-2023 Shaun Inman.
 
 # Fever End User License Agreement
 
