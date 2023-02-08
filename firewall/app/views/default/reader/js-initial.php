@@ -30,7 +30,7 @@ foreach($this->hot_start as $value => $text)
 		$hot_start_fragments[] = "{text:'{$text}',value:{$value}}";
 	}
 }
-$hot_start_js = join(',', $hot_start_fragments);
+$hot_start_js = implode(',', $hot_start_fragments);
 
 $hot_range_fragments = array();
 foreach($this->hot_range as $value => $text)
@@ -44,7 +44,7 @@ foreach($this->hot_range as $value => $text)
 		$hot_range_fragments[] = "{text:'{$text}',value:{$value}}";
 	}
 }
-$hot_range_js = join(',', $hot_range_fragments);
+$hot_range_js = implode(',', $hot_range_fragments);
 ?>
 Fever.menuControllers.hotStart.items = [<?php e($hot_start_js); ?>];
 Fever.menuControllers.hotRange.items = [<?php e($hot_range_js); ?>];
@@ -55,7 +55,7 @@ foreach($this->prefs['services'] as $service)
 {
 	$services_js[] = "['{$service['name']}','".sr("'", '%27', $service['url'])."','{$service['key']}']";
 }
-e(join(',', $services_js));
+e(implode(',', $services_js));
 ?>];
 
 // initial and reload

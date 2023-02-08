@@ -141,7 +141,7 @@ class OMDOMDOM
 					(
 						'_node_id'			=> $node_id,
 						'_node_name'		=> '#text',
-						'_node_ancestry'	=> '//'.join('/', array_keys($ancestors)),
+						'_node_ancestry'	=> '//'.implode('/', array_keys($ancestors)),
 						'_node_content'		=> $content
 					);
 					$nodes[$node_id] = $node;
@@ -212,7 +212,7 @@ class OMDOMDOM
 			(
 				'_node_id'			=> $node_id,
 				'_node_name'		=> strtolower($tag_name),
-				'_node_ancestry'	=> '//'.join('/', array_keys($ancestors))
+				'_node_ancestry'	=> '//'.implode('/', array_keys($ancestors))
 			);
 			if ($self_closing)
 			{
@@ -236,7 +236,7 @@ class OMDOMDOM
 				(
 					'_node_id'			=> $node_id,
 					'_node_name'		=> '#text',
-					'_node_ancestry'	=> '//'.join('/', array_keys($ancestors)),
+					'_node_ancestry'	=> '//'.implode('/', array_keys($ancestors)),
 					'_node_content'		=> $content
 				);
 				$nodes[$node_id] = $node;

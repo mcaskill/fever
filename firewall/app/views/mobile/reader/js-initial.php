@@ -18,7 +18,7 @@ foreach($this->prefs['services'] as $service)
 	$services_js[] = "['{$service['name']}','{$service['url']}','{$service['key']}']";
 }
 // not used, save bandwidth by commenting out
-// e(join(',', $services_js));
+// e(implode(',', $services_js));
 ?>];
 
 // initial and reload

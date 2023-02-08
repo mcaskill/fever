@@ -255,7 +255,7 @@ foreach($feed_meta['feeds'] as $j => $alt_feed)
 	}
 	$menu_options[] = "{value:'{$href}',text:'{$display_title}'}";
 }
-array_push($menus_js, $menu_name.':['.join(',', $menu_options).']');
+array_push($menus_js, $menu_name.':['.implode(',', $menu_options).']');
 ?>
 		<tr>
 <?php if (!$feed['is_subscribed']):?>
@@ -481,7 +481,7 @@ Fever.Feedlet =
 		one('#feed-' + i).checked = true;
 	}
 };
-Fever.Feedlet.feeds = {<?php e(join(',', $menus_js)); ?>};
+Fever.Feedlet.feeds = {<?php e(implode(',', $menus_js)); ?>};
 // ]]>
 </script>
 <?php $this->render('page/footer');?>

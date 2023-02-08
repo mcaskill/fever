@@ -561,7 +561,7 @@ class Fever
 				$sql_fragments[] 	= "`$col` = ?";
 				$values[] 			= $value;
 			}
-			$sql = "UPDATE `{$this->db['prefix']}{$table}` SET ".join(',', $sql_fragments)." WHERE `id` = ?";
+			$sql = "UPDATE `{$this->db['prefix']}{$table}` SET ".implode(',', $sql_fragments)." WHERE `id` = ?";
 			if (!empty($where))
 			{
 				$sql .= " AND ({$where})";
@@ -587,7 +587,7 @@ class Fever
 
 			if (!empty($columns))
 			{
-				$sql = "INSERT INTO `{$this->db['prefix']}{$table}` (`".join('`,`', $columns)."`) VALUES (?".str_repeat(',?', count($columns) - 1).")";
+				$sql = "INSERT INTO `{$this->db['prefix']}{$table}` (`".implode('`,`', $columns)."`) VALUES (?".str_repeat(',?', count($columns) - 1).")";
 				array_unshift($values, $sql);
 				$insert = call_user_func_array(array($this, 'prepare_sql'), $values);
 				return $this->insert($insert);
@@ -1346,7 +1346,7 @@ class Fever
 				{
 					$group_ids = explode(',', $_GET['group_ids']);
 
-					$query	= '`group_id` IN ('.join(array_fill(0, count($group_ids), '?'), ',').')';
+					$query	= '`group_id` IN ('.implode(',', array_fill(0, count($group_ids), '?')).')';
 					$args	= array_merge(array($query), $group_ids);
 					$feed_ids_where = call_user_func_array(array($this, 'prepare_sql'), $args);
 					$group_feed_ids = $this->get_cols('feed_id','feeds_groups', $feed_ids_where);
@@ -1354,7 +1354,7 @@ class Fever
 					$feed_ids = array_unique(array_merge($feed_ids, $group_feed_ids));
 				}
 
-				$query	= '`feed_id` IN ('.join(array_fill(0, count($feed_ids), '?'), ',').')';
+				$query	= '`feed_id` IN ('.implode(',', array_fill(0, count($feed_ids), '?')).')';
 				$args	= array_merge(array($query), $feed_ids);
 				$where .= call_user_func_array(array($this, 'prepare_sql'), $args);
 			}
@@ -1382,7 +1382,7 @@ class Fever
 				if (!empty($where)) $where .= ' AND '; // group_ids & feed_ids don't make sense with this query but just in case
 
 				$item_ids = explode(',', $_GET['with_ids']);
-				$query	= '`id` IN ('.join(array_fill(0, count($item_ids), '?'), ',').')';
+				$query	= '`id` IN ('.implode(',', array_fill(0, count($item_ids), '?')).')';
 				$args	= array_merge(array($query), $item_ids);
 
 				$where .= call_user_func_array(array($this, 'prepare_sql'), $args);
@@ -1464,14 +1464,14 @@ class Fever
 		if (isset($_GET['unread_item_ids']))
 		{
 			$unread_item_ids = $this->get_cols('id', 'items', '`read_on_time`=0');
-			$data['unread_item_ids'] = join(',', $unread_item_ids);
+			$data['unread_item_ids'] = implode(',', $unread_item_ids);
 		}
 
 		// saved items
 		if (isset($_GET['saved_item_ids']))
 		{
 			$saved_item_ids = $this->get_cols('id', 'items', '`is_saved`=1');
-			$data['saved_item_ids'] = join(',', $saved_item_ids);
+			$data['saved_item_ids'] = implode(',', $saved_item_ids);
 		}
 
 		$this->render_api($data, $_GET['api']);
@@ -2205,7 +2205,7 @@ PHP;
 		if ($confirm)
 		{
 			$feed_ids = $this->get_cols('id', 'feeds');
-			$where = "WHERE `feed_id` NOT IN (".join(',', $feed_ids).")";
+			$where = "WHERE `feed_id` NOT IN (".implode(',', $feed_ids).")";
 			$this->query("DELETE FROM `{$this->db['prefix']}items` {$where}");
 			$this->query("DELETE FROM `{$this->db['prefix']}links` {$where}");
 		}
@@ -3367,7 +3367,7 @@ PHP;
 			$feed_ids = $this->get_cols('feed_id', 'feeds_groups', $this->prepare_sql('`group_id` = ?', $group_id));
 			if (!empty($feed_ids))
 			{
-				$where = '`id` IN ('.join(',', $feed_ids).') ';
+				$where = '`id` IN ('.implode(',', $feed_ids).') ';
 			}
 			else
 			{
@@ -3701,7 +3701,7 @@ HTML;
 
 				if (!empty($update))
 				{
-					$unprepared_sql = "UPDATE `{$this->db['prefix']}items` SET".join(',', $set)." WHERE `id` = ?";
+					$unprepared_sql = "UPDATE `{$this->db['prefix']}items` SET".implode(',', $set)." WHERE `id` = ?";
 					array_unshift($update, $unprepared_sql);
 					array_push($update, $existing['id']);
 					$query = call_user_func_array(array($this, 'prepare_sql'), $update);
@@ -3750,7 +3750,7 @@ HTML;
 					$vals[]	= $value;
 					$set[]	= '?';
 				}
-				$unprepared_sql = 'INSERT INTO `'.$this->db['prefix'].'items` (`'.join($cols, '`, `').'`) VALUES ('.join($set, ', ').');';
+				$unprepared_sql = 'INSERT INTO `'.$this->db['prefix'].'items` (`'.implode('`, `', $cols).'`) VALUES ('.implode(', ', $set).');';
 				array_unshift($vals, $unprepared_sql);
 				$query = call_user_func_array(array($this, 'prepare_sql'), $vals);
 				$item_id = $this->insert($query);
@@ -3782,7 +3782,7 @@ HTML;
 						$vals[]	= $value;
 						$set[]	= '?';
 					}
-					$unprepared_sql = 'INSERT INTO `'.$this->db['prefix'].'links` (`'.join($cols, '`, `').'`) VALUES ('.join($set, ', ').');';
+					$unprepared_sql = 'INSERT INTO `'.$this->db['prefix'].'links` (`'.implode('`, `', $cols).'`) VALUES ('.implode(', ', $set).');';
 					array_unshift($vals, $unprepared_sql);
 					$query = call_user_func_array(array($this, 'prepare_sql'), $vals);
 					$this->insert($query);
@@ -4317,7 +4317,7 @@ HTML;
 			'google.com/bookmarks/mark',
 			'stumbleupon.com/submit'
 		);
-		$ignore_str = join('|', $ignore);
+		$ignore_str = implode('|', $ignore);
 		$ignore_str = sr('.', '\.', $ignore_str);
 
 		if (ma('#<a[^>]+href\s*=\s*("|\')([^\\1]*)\\1[^>]*>(.*)</a>#siU', $item['description'], $m))
@@ -4459,11 +4459,11 @@ HTML;
 		// to minimize impact on database
 		foreach($link_ids_by_weight as $weight => $link_ids)
 		{
-			$this->query("UPDATE `{$this->db['prefix']}links` SET `weight` = {$weight} WHERE `id` IN (".join(',', $link_ids).")");
+			$this->query("UPDATE `{$this->db['prefix']}links` SET `weight` = {$weight} WHERE `id` IN (".implode(',', $link_ids).")");
 		}
 		foreach($link_ids_by_is_first as $is_first => $link_ids)
 		{
-			$this->query("UPDATE `{$this->db['prefix']}links` SET `is_first` = {$is_first} WHERE `id` IN (".join(',', $link_ids).")");
+			$this->query("UPDATE `{$this->db['prefix']}links` SET `is_first` = {$is_first} WHERE `id` IN (".implode(',', $link_ids).")");
 		}
 		// debug(count($links).' to '.(count($link_ids_by_weight)+count($link_ids_by_is_first)), 'reduced queries from');
 	}
@@ -4508,7 +4508,7 @@ HTML;
 		// blacklist all urls from this batch with a single query
 		if (!empty($blacklisted_ids))
 		{
-			$this->query("UPDATE `{$this->db['prefix']}links` SET `is_blacklisted` = 1 WHERE `id` IN (".join(',', $blacklisted_ids).")");
+			$this->query("UPDATE `{$this->db['prefix']}links` SET `is_blacklisted` = 1 WHERE `id` IN (".implode(',', $blacklisted_ids).")");
 		}
 		memory_event('a:blacklist');
 
@@ -4542,7 +4542,7 @@ HTML;
 					$blacklisted_arr[] = '^'.preg_quote($blacklisted).'$';
 				}
 			}
-			$blacklist_regexp = !empty($blacklisted_arr) ? '('.join('|', $blacklisted_arr).')' : '';
+			$blacklist_regexp = !empty($blacklisted_arr) ? '('.implode('|', $blacklisted_arr).')' : '';
 		}
 		return $blacklist_regexp;
 	}
@@ -4632,8 +4632,8 @@ HTML;
 
 			if (!empty($feed_ids))
 			{
-				$where .= ' AND `feed_id` IN ('.join(',', $feed_ids).') ';
-				// $where .= ' AND (`feed_id` = '.join(' OR `feed_id` = ', $feed_ids).')';
+				$where .= ' AND `feed_id` IN ('.implode(',', $feed_ids).') ';
+				// $where .= ' AND (`feed_id` = '.implode(' OR `feed_id` = ', $feed_ids).')';
 			}
 			else
 			{
@@ -4683,8 +4683,8 @@ HTML;
 		if (!empty($feed_ids))
 		{
 			// exclude sparks
-			$where = '`feed_id` NOT IN ('.join(',', $feed_ids).') ';
-			// $where = '(`feed_id` != '.join(' OR `feed_id` != ', $feed_ids).')';
+			$where = '`feed_id` NOT IN ('.implode(',', $feed_ids).') ';
+			// $where = '(`feed_id` != '.implode(' OR `feed_id` != ', $feed_ids).')';
 		}
 		else
 		{
@@ -5030,12 +5030,12 @@ HTML;
 
 						// perform search on feeds
 						$feeds_cols		= array('title', 'url', 'site_url');
-						$feeds_where	= '(`'.join("` LIKE '%{$escaped_search}%' OR `", $feeds_cols)."` LIKE '%{$escaped_search}%'".')';
+						$feeds_where	= '(`'.implode("` LIKE '%{$escaped_search}%' OR `", $feeds_cols)."` LIKE '%{$escaped_search}%'".')';
 						$feed_ids		= $this->get_cols('id', 'feeds', $feeds_where);
 
 						// perform search on items
 						$items_cols		= array('title', 'link', 'description');
-						$items_where	= '(`'.join("` LIKE '%{$escaped_search}%' OR `", $items_cols)."` LIKE '%{$escaped_search}%'".')';
+						$items_where	= '(`'.implode("` LIKE '%{$escaped_search}%' OR `", $items_cols)."` LIKE '%{$escaped_search}%'".')';
 						$item_feed_ids	= $this->get_cols('feed_id', 'items', "{$items_where} GROUP BY `feed_id`");
 
 						$this->feed_ids = array_unique(array_merge(array(0), $feed_ids, $item_feed_ids));
@@ -5211,8 +5211,8 @@ HTML;
 		}
 
 		// now get all related links based on hot checksums
-		$links = $this->get_all('links', '`url_checksum` IN ('.join(',', $url_checksums).") AND {$where} ORDER BY `created_on_time` DESC, `is_item` DESC");
-		$orig_links = $this->get_all('links', '`url_checksum` IN ('.join(',', $url_checksums).") AND `is_local`=1 AND `is_item`=1 ORDER BY `created_on_time` DESC, `is_item` DESC");
+		$links = $this->get_all('links', '`url_checksum` IN ('.implode(',', $url_checksums).") AND {$where} ORDER BY `created_on_time` DESC, `is_item` DESC");
+		$orig_links = $this->get_all('links', '`url_checksum` IN ('.implode(',', $url_checksums).") AND `is_local`=1 AND `is_item`=1 ORDER BY `created_on_time` DESC, `is_item` DESC");
 		$links = array_merge($links, $orig_links);
 		unset($orig_links);
 		$links = key_remap('id', $links);
@@ -5234,7 +5234,7 @@ HTML;
 		$item_ids = array_unique($item_ids); // may have duplicates
 
 		// now get all related items
-		$items = $this->get_all('items', '`id` IN ('.join(',', $item_ids).') '); // specific id query, no other qualifiers needed
+		$items = $this->get_all('items', '`id` IN ('.implode(',', $item_ids).') '); // specific id query, no other qualifiers needed
 		$items = key_remap('id', $items);
 		unset($item_ids);
 
@@ -5369,7 +5369,7 @@ HTML;
 									$clean_tokens[] = r('/[^a-z]+/i', '', $token);
 								}
 							}
-							$tokens_match = low('#('.join('|', $clean_tokens).')#');
+							$tokens_match = low('#('.implode('|', $clean_tokens).')#');
 							ma($tokens_match, low($hot_link['url']), $m);
 							$by_word_frequency[$a_title] = count($m[0]);
 						}
@@ -5397,7 +5397,7 @@ HTML;
 										$clean_tokens[] = r('/[^a-z]+/i', '', $token);
 									}
 								}
-								$tokens_match = low('#('.join('|', $clean_tokens).')#');
+								$tokens_match = low('#('.implode('|', $clean_tokens).')#');
 								ma($tokens_match, low($hot_link['url']), $m);
 								$item_by_word_frequency[$a_title] = count($m[0]);
 							}
@@ -5491,8 +5491,8 @@ HTML;
 		{
 			if (!empty($this->feed_ids))
 			{
-				$where = '`feed_id` IN ('.join(',', $this->feed_ids).') ';
-				// $where = '(`feed_id` = '.join(' OR `feed_id` = ', $this->feed_ids).')';
+				$where = '`feed_id` IN ('.implode(',', $this->feed_ids).') ';
+				// $where = '(`feed_id` = '.implode(' OR `feed_id` = ', $this->feed_ids).')';
 			}
 			else
 			{
@@ -5501,8 +5501,8 @@ HTML;
 		}
 		else // display kindling
 		{
-			// $where = '(`feed_id` != '.join(' AND `feed_id` != ', $this->sparks_feed_ids).')';
-			$where = '`feed_id` NOT IN ('.join(',', $this->sparks_feed_ids).') ';
+			// $where = '(`feed_id` != '.implode(' AND `feed_id` != ', $this->sparks_feed_ids).')';
+			$where = '`feed_id` NOT IN ('.implode(',', $this->sparks_feed_ids).') ';
 		}
 
 		if ($this->prefs['ui']['section'] == 4)
@@ -5510,7 +5510,7 @@ HTML;
 			$escaped_search = $this->escape_sql($this->prefs['ui']['search']);
 			$items_cols		= array('title', 'link', 'description');
 
-			$where .= 'AND (`'.join("` LIKE '%{$escaped_search}%' OR `", $items_cols)."` LIKE '%{$escaped_search}%'".')';
+			$where .= 'AND (`'.implode("` LIKE '%{$escaped_search}%' OR `", $items_cols)."` LIKE '%{$escaped_search}%'".')';
 		}
 
 		if ($this->prefs['ui']['section'] == 2)

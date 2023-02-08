@@ -717,7 +717,7 @@ function strip_html($html, $allowed = '', $callback = '')
 
 		if (!empty($allowed_tags))
 		{
-			$allowed_html = '<'.join('><', $allowed_tags).'>';
+			$allowed_html = '<'.implode('><', $allowed_tags).'>';
 			$html = strip_tags_sane($html, $allowed_html);
 		}
 
@@ -1003,7 +1003,7 @@ function true_url($link)
 		'icanhaz.com',
 		'tinyurl.com'
 	);
-	$redirectors_str = join('|', $redirectors);
+	$redirectors_str = implode('|', $redirectors);
 	$redirectors_str = sr('.', '\.', $redirectors_str);
 
 	if (m('#('.$redirectors_str.')/.*#i', $link, $m))
