@@ -1183,8 +1183,8 @@ function memory_report()
 	}
 
 	$limit		= trim(ini_get('memory_limit'));
-	$available	= $limit + 0;
-	$unit		= substr(strtolower(str_replace($available, '', $limit)), 0, 1);
+	$available	= (int) preg_replace('/\D/', '', $limit);
+	$unit		= strtolower(preg_replace('/\d/', '', $limit));
 	switch($unit)
 	{
 		// The 'G' modifier is available since PHP 5.1.0

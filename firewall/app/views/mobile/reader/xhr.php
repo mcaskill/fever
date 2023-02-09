@@ -21,6 +21,6 @@ if (isset($_GET['mobile']['route']) && in($routes, $_GET['mobile']['route']))
 
 	if (isset($_GET['request_id']))
 	{
-		e('<!--REQUEST_ID:'.($_GET['request_id']+0).'-->');
+		e('<!--REQUEST_ID:'.$_GET['request_id'].'-->');
 	}
 }
