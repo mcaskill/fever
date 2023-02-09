@@ -24,7 +24,9 @@ class SIDB_PDO_MySQL extends SIDB {
 		$dsn .= "dbname={$database};";
 
 		try {
-			$this->pdo = new PDO($dsn, $username, $password);
+			$this->pdo = new PDO($dsn, $username, $password, [
+				PDO::ATTR_ERRMODE => PDO::ERRMODE_SILENT,
+			]);
 			$this->is_connected = true;
 		}
 		catch (PDOException $e) {
