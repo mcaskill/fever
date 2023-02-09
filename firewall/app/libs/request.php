@@ -243,13 +243,17 @@ function request($method = '', $url = '', $post = '', $headers = array(), $follo
 
 	if (isset($response_obj['headers']['set-cookie']))
 	{
-		foreach($response_obj['headers']['set-cookie'] as $set_cookie)
+		foreach((array) $response_obj['headers']['set-cookie'] as $set_cookie)
 		{
-			$cookie_parts = explode('; ', $set_cookie);
-			if (isset($cookie_parts[0]) && !empty($cookie_parts[0]))
+			$cookie_parts = explode(';', $set_cookie);
+			if (isset($cookie_parts[0]))
 			{
-				list($cookie_name, $cookie_value) = explode('=', $cookie_parts[0], 2);
-				$response_obj['cookies'][$cookie_name] = $cookie_value;
+				$cookie_parts[0] = trim($cookie_parts[0]);
+				if (!empty($cookie_parts[0]))
+				{
+					list($cookie_name, $cookie_value) = array_pad(explode('=', $cookie_parts[0], 2), 2, null);
+					$response_obj['cookies'][$cookie_name] = $cookie_value;
+				}
 			}
 		}
 	}
