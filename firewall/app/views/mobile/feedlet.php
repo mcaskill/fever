@@ -353,7 +353,7 @@ Fever.Feedlet =
 	onload : function()
 	{
 		this.onOrientationChange();
-		window.addEventListener('orientationchange', function()
+		screen.orientation.addEventListener('change', function()
 		{
 			Fever.Feedlet.onOrientationChange();
 

@@ -818,7 +818,8 @@ Fever.iPhone =
 	},
 	detectPortrait : function() {
 		var inner_width = Math.round(window.innerWidth)
-		var is_portrait = (inner_width == 320 || inner_width == 375 || inner_width == 414);
+		var inner_height = Math.round(window.innerHeight)
+		var is_portrait = (inner_height >= inner_width);
 		document.body.className = is_portrait ? 'portrait' : 'landscape';
 	},
 	onOrientationChange : function()
@@ -875,7 +876,7 @@ Fever.iPhone =
 	{
 		this.onOrientationChange();
 
-		window.addEventListener('orientationchange', function()
+		screen.orientation.addEventListener('change', function()
 		{
 			Fever.iPhone.onOrientationChange();
 
