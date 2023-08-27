@@ -4,6 +4,25 @@ This document contains the full history of Fever.
 
 Note that this repository's codebase only contains a copy of v1.39.
 
+## v1.41 (2023-08-27)
+
+- Add support to optionally check for updates from GitHub:
+  - This feature will only check for an update. It will _not_ update your installation.
+  - If the global constant `FEVER_GITHUB_REPOSITORY` is defined (`<owner>/<repo>`), Fever will check the latest release from the given GitHub repository via the GitHub REST API.
+  - The optional global constant `FEVER_GITHUB_API_TOKEN ` can be used to extend the rate limit.
+  - These two constants can be added to one of your configuration files (`config/db.php` or `config/key.php`).
+- Replace URL to `feedafever.com/anon/` with `rel="noreferrer"` attribute
+- Replace URL to `todone.txt` with URL to `CHANGELOG.md` at GitHub repository
+- Fix user agent sniffing:
+  - Some browsers (such as Firefox) on mobile/tablet devices might not include the `AppleWebKit` segment but might instead include a `Mobile` or `Tablet` platform segment.
+- Fix mobile portrait detection:
+  - Replace deprecated event `Window:orientationchange` with `ScreenOrientation:change`.
+  - Replace portrait detection to compare width against height instead of looking for specific (outdated) widths.
+- Add Laravel Valet environment file (`.valetrc`)
+- Clean-up quoted and interpolated strings
+- Update PHP compatibility:
+  - Indent doc strings supported by PHP 7.3
+
 ## v1.40 (2023-02-08)
 
 - Disabled gateway requests to feedafever.com
