@@ -3,7 +3,11 @@
 		<div class="content">
 			Update available
 		</div>
-		<a class="btn text" href="./?update">update now<i></i></a>
+		<?php if ($update_url = $this->update_url()): ?>
+			<a class="btn text" href="<?php e($update_url); ?>" rel="noopener"<?php e(($this->prefs['new_window']) ? ' target="_blank"' : '')?>>view update<i></i></a>
+		<?php else: ?>
+			<a class="btn text" href="./?update">update now<i></i></a>
+		<?php endif; ?>
 		<s></s>
 	</div><!-- .update-available -->
 <?php elseif (isset($_GET['updates'])):?>

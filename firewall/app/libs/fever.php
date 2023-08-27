@@ -2291,7 +2291,36 @@ class Fever
 			$response = $this->gateway_request('Version');
 			$current_version = (int) $response['body'];
 			*/
+			// Default to the current version; indicating no updates available.
 			$current_version = $this->version;
+
+			if (defined('FEVER_GITHUB_REPOSITORY') && FEVER_GITHUB_REPOSITORY) {
+				$url = 'https://api.github.com/repos/' . FEVER_GITHUB_REPOSITORY . '/releases/latest';
+
+				$headers = array(
+					'Accept: application/vnd.github+json',
+					'X-GitHub-Api-Version: 2022-11-28',
+				);
+
+				if (defined('FEVER_GITHUB_API_TOKEN') && FEVER_GITHUB_API_TOKEN) {
+					$headers[] = 'Authorization: Bearer ' . FEVER_GITHUB_API_TOKEN;
+				}
+
+				$response = get($url, $headers);
+				if (
+					$response['headers']['response_code'] == 200 &&
+					$response['body']
+				) {
+					$body = json_decode($response['body'], true);
+
+					if (
+						isset($body['tag_name']) &&
+						is_numeric($body['tag_name'])
+					) {
+						$current_version = (int) $body['tag_name'];
+					}
+				}
+			}
 			/*#@-*/
 
 			if ($this->cfg['updates']['last_checked_version'] < $current_version)
@@ -2409,6 +2438,18 @@ class Fever
 	public function update_available()
 	{
 		return ($this->cfg['version'] < $this->cfg['updates']['last_checked_version']);
+	}
+
+	/**************************************************************************
+	 update_url()
+	 **************************************************************************/
+	public function update_url()
+	{
+		if (defined('FEVER_GITHUB_REPOSITORY') && FEVER_GITHUB_REPOSITORY) {
+			return 'https://github.com/' . FEVER_GITHUB_REPOSITORY . '/releases/latest';
+		}
+
+		return null;
 	}
 
 	/**************************************************************************
