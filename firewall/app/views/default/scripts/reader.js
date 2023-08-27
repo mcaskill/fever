@@ -601,6 +601,14 @@ Fever.Reader =
 
 			for (var i = 0; i < links.length; i++)
 			{
+				links[i].rel = this.anonymize ? 'noreferrer' : 'noopener';
+
+				if (this.newWindow)
+				{
+					links[i].target = '_blank';
+				};
+
+				/*#@+
 				if (this.anonymize)
 				{
 					links[i].onclick = function()
@@ -621,6 +629,7 @@ Fever.Reader =
 				{
 					links[i].target = '_blank';
 				};
+				#@-*/
 			};
 		};
 	},
