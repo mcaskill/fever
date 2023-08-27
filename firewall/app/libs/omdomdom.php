@@ -393,7 +393,7 @@ class OMDOMDOMNode
 			// handle unencoded CDATA in a content:encoded element
 			if ($node['_node_name'] == '#cdata')
 			{
-				$cdata	= r('#<!\[CDATA\[(.*?)]]>#smu', "$1", $node['_node_content']);
+				$cdata	= r('#<!\[CDATA\[(.*?)]]>#smu', '$1', $node['_node_content']);
 				$parent = $this->parent();
 				if ($parent->get_node_name() == 'content:encoded')
 				{

@@ -195,7 +195,7 @@ function request($method = '', $url = '', $post = '', $headers = array(), $follo
 		}
 	}
 
-	$debug = explode("close", $response, 2);
+	$debug = explode('close', $response, 2);
 
 	## separating headers from content
 	// 0d0a \r\n normal

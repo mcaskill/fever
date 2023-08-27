@@ -37,7 +37,7 @@ function p($obj, $title = '', $print=true)
 	if (!empty($title)) { $html .= "{$title}: "; }
 	$html .= print_r($obj, true);
 
-	if ($print) e("<pre>$html</pre>\n");
+	if ($print) e("<pre>{$html}</pre>\n");
 	return $html;
 }
 

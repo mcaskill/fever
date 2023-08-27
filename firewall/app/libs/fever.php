@@ -330,7 +330,7 @@ class Fever
 
 		if ($this->connect())
 		{
-			// $this->query("SET sql_mode='STRICT_ALL_TABLES'");
+			// $this->query('SET sql_mode="STRICT_ALL_TABLES"');
 			$this->load();
 		}
 		define('REQUEST_UA', 'Fever/'.$this->formatted_version().' (Feed Parser; http://feedafever.com; Allow like Gecko)');
@@ -556,7 +556,7 @@ class Fever
 					continue;
 				}
 
-				$sql_fragments[] 	= "`$col` = ?";
+				$sql_fragments[] 	= "`{$col}` = ?";
 				$values[] 			= $value;
 			}
 			$sql = "UPDATE `{$this->db['prefix']}{$table}` SET ".implode(',', $sql_fragments)." WHERE `id` = ?";
@@ -2626,7 +2626,7 @@ class Fever
 	{
 		$paths		= array();
 		$self		= (isset($_SERVER['PHP_SELF']) && !empty($_SERVER['PHP_SELF']))?$_SERVER['PHP_SELF']:((isset($_SERVER['SCRIPT_NAME']) && !empty($_SERVER['SCRIPT_NAME']))?$_SERVER['SCRIPT_NAME']:$_SERVER['SCRIPT_URL']);
-		$domain		= (!empty($_SERVER["HTTP_HOST"]) && $_SERVER["HTTP_HOST"] != $_SERVER['SERVER_NAME'])?$_SERVER["HTTP_HOST"]:$_SERVER['SERVER_NAME'];
+		$domain		= (!empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != $_SERVER['SERVER_NAME'])?$_SERVER['HTTP_HOST']:$_SERVER['SERVER_NAME'];
 		$protocol 	= ((isset($_SERVER['HTTPS']) && low($_SERVER['HTTPS']) == 'on') || (isset($_SERVER['HTTP_HTTPS']) && low($_SERVER['HTTP_HTTPS']) == 'on') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) ? 'https' : 'http';
 
 		$paths['protocol']	= $protocol;
@@ -2657,7 +2657,7 @@ class Fever
 			}
 			else
 			{
-				$this->fatal_error("Fever's configuration data appears to be damaged beyond repair.");
+				$this->fatal_error('Fever\'s configuration data appears to be damaged beyond repair.');
 				$this->render('errors');
 			}
 
@@ -2667,7 +2667,7 @@ class Fever
 			}
 			else
 			{
-				$this->fatal_error("Fever's preference data appears to be damaged beyond repair.");
+				$this->fatal_error('Fever\'s preference data appears to be damaged beyond repair.');
 				$this->render('errors');
 			}
 		}

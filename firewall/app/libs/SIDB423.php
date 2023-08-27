@@ -9,7 +9,7 @@
  $db = SIDB('database', 'username', 'password');
  if (!$db->is_connected) die('Could not connect. '.$db->error);
 
- $sql = $db->prepare("SELECT * FROM `table` WHERE `id`=?", $unsafe_id);
+ $sql = $db->prepare('SELECT * FROM `table` WHERE `id`=?', $unsafe_id);
  if ($db->query($sql)) {
  	if ($rows = $db->rows()) {
 		// do something with $rows
@@ -18,7 +18,7 @@
  }
  else echo $db->error;
 
- $db->query("INSERT ...");
+ $db->query('INSERT ...');
  $id = $db->insert_id();
 
  $db->quote($unsafe); // quotes and escapes, used automatically by prepare()
