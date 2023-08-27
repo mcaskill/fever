@@ -2601,7 +2601,7 @@ Fever.menuControllers =
 				text 	: 'Changelog&#8230;',
 				onClick : function()
 				{
-					var url = 'http://feedafever.com/todone.txt';
+					var url = 'https://github.com/mcaskill/fever/blob/main/CHANGELOG.md';
 					if (Fever.Reader.newWindow)
 					{
 						window.open(url);
