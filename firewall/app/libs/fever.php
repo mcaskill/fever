@@ -2054,13 +2054,14 @@ class Fever
 			$db_php  = '<?php';
 			$db_php .= <<<PHP
 
-define('FEVER_DB_SERVER', 	'{$this->db['server']}');
-define('FEVER_DB_DATABASE', '{$this->db['database']}');
-define('FEVER_DB_USERNAME', '{$this->db['username']}');
-define('FEVER_DB_PASSWORD', '{$db_password}');
-define('FEVER_DB_PREFIX', 	'{$this->db['prefix']}');
+			define('FEVER_DB_SERVER', 	'{$this->db['server']}');
+			define('FEVER_DB_DATABASE', '{$this->db['database']}');
+			define('FEVER_DB_USERNAME', '{$this->db['username']}');
+			define('FEVER_DB_PASSWORD', '{$db_password}');
+			define('FEVER_DB_PREFIX', 	'{$this->db['prefix']}');
 
-PHP;
+			PHP;
+
 			if ($this->load() && (!$confirmed || $different))
 			{
 				$this->render('install/existing');
@@ -3439,8 +3440,8 @@ PHP;
 			$title	= quote($this->title($feed));
 			$title_html = '<i class="favicon '.$class.'"><i></i></i>'.$title;
 			$html 	= <<<HTML
-<script type="text/javascript" language="javascript">parent.Fever.Reader.updateRefreshProgress('{$title_html}', {$i}, {$total});</script>
-HTML;
+			<script type="text/javascript" language="javascript">parent.Fever.Reader.updateRefreshProgress('{$title_html}', {$i}, {$total});</script>
+			HTML;
 			e($html);
 			// call push before refreshing the feed
 			// so we have something to look at
@@ -3452,8 +3453,8 @@ HTML;
 			if (!$this->is_silent)
 			{
 				$html 	= <<<HTML
-<script type="text/javascript" language="javascript">parent.Fever.Reader.feedRequiresAuth({$feed['id']});</script>
-HTML;
+				<script type="text/javascript" language="javascript">parent.Fever.Reader.feedRequiresAuth({$feed['id']});</script>
+				HTML;
 			// $html  .= "Refreshing {$i}/{$total} {$title}";
 			e($html);
 			push();
@@ -3848,8 +3849,8 @@ HTML;
 			$title	= quote($this->title($feed));
 			$title_html = '<i class="favicon icon"><i></i></i>'.$title;
 			$html 	= <<<HTML
-<script type="text/javascript" language="javascript">parent.Fever.Reader.updateRefreshProgress('{$title_html}', {$i}, {$total}, 1);</script>
-HTML;
+			<script type="text/javascript" language="javascript">parent.Fever.Reader.updateRefreshProgress('{$title_html}', {$i}, {$total}, 1);</script>
+			HTML;
 			// $html  .= "Caching favicon {$i}/{$total} {$title}<br />";
 			e($html);
 			// call push before refreshing the feed
@@ -3870,11 +3871,11 @@ HTML;
 			$this->relationships();
 
 			$html = <<<HTML
-<script type="text/javascript" language="javascript">
-window.setTimeout(function(){ parent.Fever.Reader.updateAfterRefresh({$this->total_feeds}); }, 1 * 1000);
-parent.Fever.Reader.updateFaviconCache({$this->last_cached_on_time}000);
-</script>
-HTML;
+			<script type="text/javascript" language="javascript">
+			window.setTimeout(function(){ parent.Fever.Reader.updateAfterRefresh({$this->total_feeds}); }, 1 * 1000);
+			parent.Fever.Reader.updateFaviconCache({$this->last_cached_on_time}000);
+			</script>
+			HTML;
 			// $html .= 'Done caching';
 			e($html);
 		}
@@ -4878,13 +4879,13 @@ HTML;
 	{
 		$paths = $this->install_paths();
 		$html = <<<HTML
-<a
-	class="btn text"
-	href="javascript:(function(){s=document.createElement('script');s.type='text/javascript';s.src='{$paths['full']}/?feedlet&amp;js&amp;'+(new%20Date()).getTime();document.getElementsByTagName('head')[0].appendChild(s);})();"
-	onclick="alert('Drag this link onto your browser bookmarks bar.'); return false;"
-	>Feedlet<i></i></a>
+		<a
+			class="btn text"
+			href="javascript:(function(){s=document.createElement('script');s.type='text/javascript';s.src='{$paths['full']}/?feedlet&amp;js&amp;'+(new%20Date()).getTime();document.getElementsByTagName('head')[0].appendChild(s);})();"
+			onclick="alert('Drag this link onto your browser bookmarks bar.'); return false;"
+			>Feedlet<i></i></a>
 
-HTML;
+		HTML;
 		return r('#\r+#', '', $html);
 	}
 

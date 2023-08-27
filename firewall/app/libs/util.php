@@ -1205,16 +1205,16 @@ function memory_report()
 	$available_formatted = number_format($available);
 	$tma = str_pad("Total memory available:".r('# +#', ' ', " {$limit} ")."({$available_formatted}B)", 61, ' ', STR_PAD_LEFT);
 	$text = <<<TEXT
---------------------------------------------------------------------------------
-{$when}{$tma}
---------------------------------------------------------------------------------
-                                        |           SINCE LAST EVENT
-                    Total               ----------------------------------------
-                    Memory      % of    |   Memory      % of                Time
-Event               Consumed    Total   |   Consumed    Total            Elapsed
---------------------------------------------------------------------------------
+	--------------------------------------------------------------------------------
+	{$when}{$tma}
+	--------------------------------------------------------------------------------
+	                                        |           SINCE LAST EVENT
+	                    Total               ----------------------------------------
+	                    Memory      % of    |   Memory      % of                Time
+	Event               Consumed    Total   |   Consumed    Total            Elapsed
+	--------------------------------------------------------------------------------
 
-TEXT;
+	TEXT;
 
 	$last_used		= 0;
 	$last_microtime	= EXECUTION_START;
