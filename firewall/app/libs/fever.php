@@ -337,14 +337,12 @@ class Fever
 		$this->is_mobile =
 		(
 			isset($_SERVER['HTTP_USER_AGENT']) &&
-			strpos($_SERVER['HTTP_USER_AGENT'], 'AppleWebKit') &&
-			m('#(iPhone|iPod|Pre|Pixi|Android|webOS)#', $_SERVER['HTTP_USER_AGENT'], $m)
+			m('#(iPhone|iPod|Pre|Pixi|Android|Mobile|webOS)#', $_SERVER['HTTP_USER_AGENT'], $m)
 		);
 		$this->is_ipad =
 		(
 			isset($_SERVER['HTTP_USER_AGENT']) &&
-			strpos($_SERVER['HTTP_USER_AGENT'], 'AppleWebKit') &&
-			m('#(iPad)#', $_SERVER['HTTP_USER_AGENT'], $m)
+			m('#(iPad|Tablet)#', $_SERVER['HTTP_USER_AGENT'], $m)
 		);
 
 		// allow forcing mobile
