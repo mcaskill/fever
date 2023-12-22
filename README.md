@@ -8,7 +8,7 @@ This is a backup of [Shaun Inman](http://shauninman.com/)'s [Fever](https://feed
 
 ## Maintenance
 
-The feed reader is being maintained to continue operating with the latest versions of PHP and MySQL.
+The feed reader is being maintained to continue operating with the latest versions of PHP 8.3, MySQL 5.7, and MariaDB 11.2.
 
 This repository and its changes are made public for anyone else with a licensed copy of the software.
 
