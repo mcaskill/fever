@@ -2,7 +2,7 @@
 
 This document contains the full history of Fever.
 
-Note that this repository's codebase only contains a copy of v1.39.
+Note that this repository's codebase only contains a copy of v1.39 and onwards.
 
 ## v1.41 (2023-08-27)
 
@@ -22,6 +22,7 @@ Note that this repository's codebase only contains a copy of v1.39.
 - Clean-up quoted and interpolated strings
 - Update PHP compatibility:
   - Indent doc strings supported by PHP 7.3
+
 
 ## v1.40 (2023-02-08)
 
@@ -45,6 +46,7 @@ Note that this repository's codebase only contains a copy of v1.39.
   - Rename constructors; deprecated in PHP 7.0
   - Remove magic quotes; deprecated in PHP 5.4
 - Update `is_development_copy()` to replace `.dev` with `.test` since the former became a real TLD in 2019
+
 
 ## v1.39 (2014-09-22)
 
