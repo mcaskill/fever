@@ -331,10 +331,9 @@ ul.source-list li:last-child
 
 input[type=search]
 {
+	display: block;
 	width: 251px;
 	height: 24px;
-	font-size: inherit;
-	line-height: 1px;
 	margin: 0;
 	padding: 1px 8px 0;
 }

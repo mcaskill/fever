@@ -435,11 +435,12 @@ li.target .icon
 {
 	-webkit-appearance: caret;
 
+	display: block;
 	width: 100%;
+	height: 18px;
 	background-color: transparent;
 	border: none;
 	padding: 0;
-	margin: 2px 0 0;
 }
 
 .btn.cancel.search
@@ -1143,11 +1144,6 @@ li.target .icon
 /* for Opera only */
 @media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0)
 {
-	head~body .search.q #q
-	{
-		height: 16px;
-	}
-
 	head~body .notches b
 	{
 		height: 100%;
