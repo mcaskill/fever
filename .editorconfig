@@ -14,5 +14,9 @@ indent_size = 2
 indent_style = space
 trim_trailing_whitespace = false
 
+[*.y*ml]
+indent_size = 2
+indent_style = space
+
 [firewall/app/**]
 insert_final_newline = false

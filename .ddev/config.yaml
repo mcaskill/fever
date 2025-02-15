@@ -1,0 +1,8 @@
+name: fever
+type: php
+php_version: 8.4
+composer_version: 2
+webserver_type: apache-fpm
+database:
+  type: mysql
+  version: 8.0
