@@ -4207,7 +4207,7 @@ class Fever
 								$content = sr($m[0][$i], stripslashes("{$m[1][$i]}={$m[2][$i]}".resolve($site_url, trim($m[3][$i]))."{$m[2][$i]}"), $content);
 							}
 						}
-						$item['description'] = $content;
+						$item['description'] = trim($content);
 					}
 				break;
 
