@@ -4,6 +4,16 @@ This document contains the full history of Fever.
 
 Note that this repository's codebase only contains a copy of v1.39 and onwards.
 
+## v1.42 (2025-02-28)
+
+- Add suport for feed item image elements. Reader will search the following nodes for images to prepend to the feed item description:
+  - `<link type="image/*" href="*">`
+  - `<enclosure type="image/*" url="*">`
+  - `<media:content type="image/*" url="*">`
+  - `<media:thumbnail url="*">`
+- Trim feed item description.
+- Fix apperance of search input for Chrome and Firefox on desktop and mobile.
+
 ## v1.41 (2023-08-27)
 
 - Add support to optionally check for updates from GitHub:
