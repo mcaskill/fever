@@ -4100,6 +4100,8 @@ class Fever
 			'uid'				=> ''
 		);
 
+		$image_url = null;
+
 		$guid_is_permalink = true;
 
 		$child_nodes = $item_node->children();
@@ -4183,6 +4185,39 @@ class Fever
 					$item['author'] = $author;
 				break;
 
+				case 'media:thumbnail':
+					if (!empty($image_url)) {
+						break;
+					}
+
+					if ($node->has_attr('url'))
+					{
+						$image_url = html_entity_decode_utf8(trim($node->get_attr('url')));
+					}
+				break;
+
+				case 'enclosure':
+				case 'link':
+				case 'media:content':
+					if (!empty($image_url)) {
+						break;
+					}
+
+					if (!$node->has_attr('type') || !in($node->get_attr('type'), 'image/'))
+					{
+						break;
+					}
+
+					if ($node->has_attr('href'))
+					{
+						$image_url = html_entity_decode_utf8(trim($node->get_attr('href')));
+					}
+					elseif ($node->has_attr('url'))
+					{
+						$image_url = html_entity_decode_utf8(trim($node->get_attr('url')));
+					}
+				break;
+
 				case 'description': // rss
 				case 'content': // atom
 				case 'content:encoded': // atom
@@ -4252,6 +4287,11 @@ class Fever
 					}
 				break;
 			}
+		}
+
+
+		if (!empty($image_url)) {
+			$item['description'] = '<img src="' . $image_url . '" /><hr />' . $item['description'];
 		}
 
 		if (empty($item['link']) && $guid_is_permalink && !empty($item['uid']))
