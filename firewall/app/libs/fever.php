@@ -4186,35 +4186,28 @@ class Fever
 				break;
 
 				case 'media:thumbnail':
-					if (!empty($image_url)) {
-						break;
-					}
-
-					if ($node->has_attr('url'))
-					{
-						$image_url = html_entity_decode_utf8(trim($node->get_attr('url')));
+					if (empty($image_url)) {
+						if ($node->has_attr('url'))
+						{
+							$image_url = html_entity_decode_utf8(trim($node->get_attr('url')));
+						}
 					}
 				break;
 
 				case 'enclosure':
-				case 'link':
 				case 'media:content':
-					if (!empty($image_url)) {
-						break;
-					}
-
-					if (!$node->has_attr('type') || !in($node->get_attr('type'), 'image/'))
-					{
-						break;
-					}
-
-					if ($node->has_attr('href'))
-					{
-						$image_url = html_entity_decode_utf8(trim($node->get_attr('href')));
-					}
-					elseif ($node->has_attr('url'))
-					{
-						$image_url = html_entity_decode_utf8(trim($node->get_attr('url')));
+					if (empty($image_url)) {
+						if ($node->has_attr('type') && in($node->get_attr('type'), 'image/'))
+						{
+							if ($node->has_attr('href'))
+							{
+								$image_url = html_entity_decode_utf8(trim($node->get_attr('href')));
+							}
+							elseif ($node->has_attr('url'))
+							{
+								$image_url = html_entity_decode_utf8(trim($node->get_attr('url')));
+							}
+						}
 					}
 				break;
 
@@ -4222,7 +4215,6 @@ class Fever
 				case 'content': // atom
 				case 'content:encoded': // atom
 				case 'summary': // atom
-
 					$content = $node->inner_content();
 
 					$node_name = $node->get_node_name();
@@ -4251,6 +4243,20 @@ class Fever
 				break;
 
 				case 'link':
+					if (empty($image_url)) {
+						if ($node->has_attr('type') && in($node->get_attr('type'), 'image/'))
+						{
+							if ($node->has_attr('href'))
+							{
+								$image_url = html_entity_decode_utf8(trim($node->get_attr('href')));
+							}
+							elseif ($node->has_attr('url'))
+							{
+								$image_url = html_entity_decode_utf8(trim($node->get_attr('url')));
+							}
+						}
+					}
+
 					if (empty($item['link']))
 					{
 						if ($node->has_attr('href')) // atom
