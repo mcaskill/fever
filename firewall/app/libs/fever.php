@@ -7,7 +7,7 @@ define('VALID_EMAIL', 		'!^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b
 class Fever
 {
 	public $app_name	= 'Fever';
-	public $version 	= 142;
+	public $version 	= 143;
 	protected $db		= array
 	(
 		'server' 	=> 'localhost',

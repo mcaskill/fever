@@ -4,6 +4,10 @@ This document contains the full history of Fever.
 
 Note that this repository's codebase only contains a copy of v1.39 and onwards.
 
+## v1.43 (2025-03-03)
+
+- Fix broken feed item link accidentally introduced in Fever v1.42.
+
 ## v1.42 (2025-02-28)
 
 - Add suport for feed item image elements. Reader will search the following nodes for images to prepend to the feed item description:
