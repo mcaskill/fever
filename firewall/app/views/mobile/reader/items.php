@@ -70,6 +70,10 @@ else if ($this->prefs['ui']['section'] == 1)
 					$class = 'read';
 				}
 			}
+
+			if (empty($item['title'])) {
+				$item['title'] = '&#8230;';
+			}
 			?>
 			<li id="item-<?php e($item['id'])?>" class="<?php e($class)?>" onclick="Fever.iPhone.loadItem(<?php e($item['id'])?>);Fever.iPhone.markItemAsRead(<?php e($item['id'])?>);">
 				<a class="feed-<?php e($item['feed_id']);?>">

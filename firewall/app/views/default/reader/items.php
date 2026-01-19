@@ -25,6 +25,10 @@ else // if ($this->prefs['ui']['section'] != 4)
 	}
 }
 
+if (empty($item['title'])) {
+	$item['title'] = '&#8230;';
+}
+
 $item_allows 			= $this->option('item_allows', $feed['id']);
 $item_excerpts			= $this->option('item_excerpts', $feed['id']);
 $prevents_hotlinking	= $feed['prevents_hotlinking'];

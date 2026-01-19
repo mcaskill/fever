@@ -33,6 +33,10 @@ else // if ($this->prefs['ui']['section'] != 4)
 	}
 }
 
+if (empty($item['title'])) {
+	$item['title'] = '&#8230;';
+}
+
 $sections = array
 (
 	'Hot',

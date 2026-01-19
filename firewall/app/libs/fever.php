@@ -4110,11 +4110,11 @@ class Fever
 			switch (low($node->get_node_name()))
 			{
 				case 'title':
-					$item['title'] = strip_tags_sane(html_entity_decode_utf8($node->inner_text()));
+					$title = trim(strip_tags_sane(html_entity_decode_utf8($node->inner_text())));
 
-					if (empty($item['title']))
+					if ($title)
 					{
-						$item['title'] = '&#8230;';
+						$item['title'] = $title;
 					}
 				break;
 
