@@ -2295,7 +2295,7 @@ class Fever
 			$current_version = $this->version;
 
 			if (defined('FEVER_GITHUB_REPOSITORY') && FEVER_GITHUB_REPOSITORY) {
-				$url = 'https://api.github.com/repos/' . FEVER_GITHUB_REPOSITORY . '/releases/latest';
+				$url = 'https://api.github.com/repos/' . FEVER_GITHUB_REPOSITORY . '/tags';
 
 				$headers = array(
 					'Accept: application/vnd.github+json',
@@ -2314,10 +2314,10 @@ class Fever
 					$body = json_decode($response['body'], true);
 
 					if (
-						isset($body['tag_name']) &&
-						is_numeric($body['tag_name'])
+						isset($body[0]['name']) &&
+						is_numeric($body[0]['name'])
 					) {
-						$current_version = (int) $body['tag_name'];
+						$current_version = (int) $body[0]['name'];
 					}
 				}
 			}
