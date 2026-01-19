@@ -4,6 +4,13 @@ This document contains the full history of Fever.
 
 Note that this repository's codebase only contains a copy of v1.39 and onwards.
 
+## v1.44 (2026-01-18)
+
+- Fix support to optionally check for updates from GitHub introduced in Fever v1.41; check for tags instead of releases.
+- Fix edge case where feed item title element is undefined and item title ends up an empty string:
+  - Move fallback title (…) to view render instead of preserving it in database.
+  - Trim the feed item title in case it's just whitespace.
+
 ## v1.43 (2025-03-03)
 
 - Fix broken feed item link accidentally introduced in Fever v1.42.
