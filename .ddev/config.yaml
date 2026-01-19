@@ -1,6 +1,6 @@
 name: fever
 type: php
-php_version: "8.4"
+php_version: "8.5"
 composer_version: "2"
 webserver_type: apache-fpm
 database:
