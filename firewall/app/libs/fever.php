@@ -3294,6 +3294,14 @@ class Fever
 		{
 			$max_execution_time		= 300; // five minutes
 		}
+		// keep batches short even when max_execution_time is generous: web servers and proxies
+		// (LiteSpeed, nginx, Cloudflare) often end a request that sends no output long before
+		// PHP's limit, which silently drops the redirect to the next batch
+		$max_batch_time				= defined('FEVER_REFRESH_BATCH_TIME') ? (int) FEVER_REFRESH_BATCH_TIME : 30;
+		if ($max_batch_time > 0 && $max_execution_time > $max_batch_time)
+		{
+			$max_execution_time		= $max_batch_time;
+		}
 		$available_execution_time 	= $max_execution_time - elapsed_execution_time();
 
 		// memory_event('b:'.(isset($_GET['uDOM']) ? 'uDOM' : 'OMDOMDOM'));
@@ -3319,7 +3327,8 @@ class Fever
 			// higher number means more refreshes but less margin for execution overflow errors
 			if (elapsed_execution_time() + ($average_execution_time * 1.5) < $available_execution_time)
 			{
-				$REQUEST_TIMEOUT = floor($available_execution_time) - 1; // leave a second to wrap up if we run out of time
+				$REQUEST_TIMEOUT = floor($max_execution_time - elapsed_execution_time()) - 1; // time left in this batch, less a second to wrap up
+				$REQUEST_TIMEOUT = ($REQUEST_TIMEOUT < 1) ? 1 : $REQUEST_TIMEOUT; // a timeout of 0 means none at all to cURL
 				$REQUEST_TIMEOUT = ($REQUEST_TIMEOUT > 30) ? 30 : $REQUEST_TIMEOUT; // let's be sensible
 				$start_execution = ms();
 
