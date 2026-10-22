@@ -437,10 +437,25 @@ function html_entity_decode_utf8($str)
 		$translation_table = array();
 		foreach (get_safe_html_translation_table(HTML_ENTITIES) as $val=>$key)
 		{
-			$translation_table[$key] = utf8_encode($val);
+			$translation_table[$key] = latin1_to_utf8($val);
 		}
 	}
 	return strtr($str, $translation_table);
+}
+
+/**************************************************************************
+ latin1_to_utf8()
+
+ Converts an ISO-8859-1 string to UTF-8. Replaces utf8_encode(), which is
+ deprecated as of PHP 8.2, without requiring the mbstring or iconv extension.
+ **************************************************************************/
+function latin1_to_utf8($str)
+{
+	return preg_replace_callback('/[\x80-\xFF]/', 'callback_latin1_to_utf8', $str);
+}
+function callback_latin1_to_utf8($m) {
+	$ord = ord($m[0]);
+	return chr(0xC0 | ($ord >> 6)).chr(0x80 | ($ord & 0x3F));
 }
 function callback_code2utf_hexdec($m) {
 	return code2utf(hexdec($m[1]));
