@@ -145,7 +145,7 @@ function excerpt($html, $max_length = 200)
 	$content = $html.'</p>'; // the following regex executes forever on some strings without the closing </p>
 	if (ma('#(.+)(</p>|(<br( /)?>{2,}))#misU', $content, $m))
 	{
- 		foreach($m[1] as $p)
+		foreach($m[1] as $p)
 		{
 			$stripped = trim(strip_tags_sane($p));
 			if (!empty($stripped))
@@ -374,8 +374,8 @@ function in($haystack, $needle, $sensitive = false)
 function h($str)
 {
 	return htmlspecialchars($str, ENT_COMPAT, 'ISO-8859-1'); // default charset in 5.4 is UTF-8
-//	$args = func_get_args();
-//	return call_user_func_array('htmlspecialchars', $args);
+	//$args = func_get_args();
+	//return call_user_func_array('htmlspecialchars', $args);
 }
 
 /**************************************************************************
@@ -550,7 +550,6 @@ function code2utf($num)
 
 /**************************************************************************
  text_for_filename()
-
  **************************************************************************/
 function text_for_filename($text)
 {
@@ -563,7 +562,6 @@ function text_for_filename($text)
 
 /**************************************************************************
  prevent_xss()
-
  **************************************************************************/
 function prevent_xss($value)
 {
@@ -1240,11 +1238,11 @@ function memory_report()
 	$tpt = str_pad(round(($nm - $__MEMORY_EVENTS[0][1])/$available * 100, 2).'%', 8);
 	$tet = str_pad(number_format($last_microtime - EXECUTION_START, 6).'s', 40, ' ', STR_PAD_LEFT);
 	$text .= <<<TEXT
---------------------------------------------------------------------------------
-Since first event   {$tmc}{$tpt}{$tet}
+	--------------------------------------------------------------------------------
+	Since first event   {$tmc}{$tpt}{$tet}
 
 
-TEXT;
+	TEXT;
 
 	// empty our events
 	$__MEMORY_EVENTS = array();
@@ -1289,7 +1287,7 @@ function tmp_log($obj, $title = '')
 	$debug = debug_backtrace(false);
 	ob_start();
 	p($obj, $title);
- 	p($debug[2], 'debug');
+	p($debug[2], 'debug');
 	return ob_get_clean();
 }
 

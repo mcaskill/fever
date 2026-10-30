@@ -4,6 +4,10 @@ This document contains the full history of Fever.
 
 Note that this repository's codebase only contains a copy of v1.39 and onwards.
 
+## Unreleased
+
+- Clean-up indentation styles and depths.
+
 ## v1.44 (2026-01-18)
 
 - Fix support to optionally check for updates from GitHub introduced in Fever v1.41; check for tags instead of releases.
