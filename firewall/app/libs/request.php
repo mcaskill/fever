@@ -173,8 +173,7 @@ function request($method = '', $url = '', $post = '', $headers = array(), $follo
 		{
 			$socket_scheme = 'ssl://';
 		}
-		$request = fsockopen
-		(
+		$request = fsockopen(
 			$socket_scheme.$parsed_url['host'],
 			$parsed_url['port'],
 			$error['no'],

@@ -6,7 +6,7 @@ Note that this repository's codebase only contains a copy of v1.39 and onwards.
 
 ## Unreleased
 
-- Clean-up indentation styles and depths.
+- Clean-up indentation styles and depths, and function call syntax.
 
 ## v1.44 (2026-01-18)
 
