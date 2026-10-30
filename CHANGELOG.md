@@ -6,6 +6,9 @@ Note that this repository's codebase only contains a copy of v1.39 and onwards.
 
 ## Unreleased
 
+- Improve request timeout in `infiniterator()` method (#5):
+  - Alter `$REQUEST_TIMEOUT` to be based on the remaining execution time at each iteration instead of once before iteration.
+  - Clamp the `$REQUEST_TIMEOUT` between 1 and 30 seconds to avoid 0 which usually instructs handlers like cURL to wait indefinitely.
 - Add support for controlling PHP error reporting with the global constant `FEVER_DEBUG` (either `true` to report all PHP errors or the desired `E_*` error level).
 - Update `is_development_copy()` method to support `.ddev.site`.
 - Clean-up indentation styles and depths, function capitalization, function call syntax, and regular expression syntax.

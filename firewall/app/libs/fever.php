@@ -3319,8 +3319,11 @@ class Fever
 			// higher number means more refreshes but less margin for execution overflow errors
 			if (elapsed_execution_time() + ($average_execution_time * 1.5) < $available_execution_time)
 			{
-				$REQUEST_TIMEOUT = floor($available_execution_time) - 1; // leave a second to wrap up if we run out of time
-				$REQUEST_TIMEOUT = ($REQUEST_TIMEOUT > 30) ? 30 : $REQUEST_TIMEOUT; // let's be sensible
+				// determine the timeout based on the remaining execution time,
+				// minus a second to wrap up if we run out of time.
+				$REQUEST_TIMEOUT = floor($max_execution_time - elapsed_execution_time()) - 1;
+				// let's be sensible and also avoid 0 which usually instructs to wait indefinitely
+				$REQUEST_TIMEOUT = max(1, min(30, $REQUEST_TIMEOUT));
 				$start_execution = ms();
 
 				// execute each_method
