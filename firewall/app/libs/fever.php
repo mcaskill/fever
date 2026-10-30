@@ -2176,7 +2176,7 @@ class Fever
 	public function is_development_copy()
 	{
 		$paths = $this->install_paths();
-		return (bool) m('/^localhost|\.test$/', '', $paths['trim']);
+		return (bool) m('/^localhost|\.ddev\.site|\.test$/', '', $paths['trim']);
 	}
 
 	/**************************************************************************
