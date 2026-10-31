@@ -14,6 +14,11 @@ include(FIREWALL_ROOT.'app/libs/fever.php');
 include(FIREWALL_ROOT.'config/db.php');
 include(FIREWALL_ROOT.'config/key.php');
 
+if (defined('FEVER_DEBUG') && FEVER_DEBUG)
+{
+	error_reporting(is_int(FEVER_DEBUG) ? FEVER_DEBUG : E_ALL);
+}
+
 $Fever = new Fever();
 include(FIREWALL_ROOT.'app/libs/request.php');
 $Fever->route();

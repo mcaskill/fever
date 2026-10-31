@@ -6,6 +6,7 @@ Note that this repository's codebase only contains a copy of v1.39 and onwards.
 
 ## Unreleased
 
+- Add support for controlling PHP error reporting with the global constant `FEVER_DEBUG` (either `true` to report all PHP errors or the desired `E_*` error level).
 - Update `is_development_copy()` method to support `.ddev.site`.
 - Clean-up indentation styles and depths, function capitalization, function call syntax, and regular expression syntax.
 
