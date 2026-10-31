@@ -430,8 +430,8 @@ function get_safe_html_translation_table() {
 function html_entity_decode_utf8($str)
 {
 	static $translation_table;
-	$str = preg_replace_callback('/&#x0*([0-9a-f]+);/i', 'callback_code2utf_hexdec', $str);
-	$str = preg_replace_callback('/&#0*([0-9]+);/', 'callback_code2utf', $str);
+	$str = preg_replace_callback('/&\#x0*([0-9a-f]+);/i', 'callback_code2utf_hexdec', $str);
+	$str = preg_replace_callback('/&\#0*([0-9]+);/', 'callback_code2utf', $str);
 	if (!isset($translation_table))
 	{
 		$translation_table = array();
