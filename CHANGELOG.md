@@ -13,6 +13,8 @@ Note that this repository's codebase only contains a copy of v1.39 and onwards.
 - Add `$table` parameter to `get_safe_html_translation_table()` matching default value of equivalent parameter of `get_html_translation_table()`. Only `HTML_ENTITIES` is used in Fever, by `html_entity_decode_utf8()`, but making it parameterizable if need be in the future.
 - Update `is_development_copy()` method to support `.ddev.site`.
 - Clean-up indentation styles and depths, function capitalization, function call syntax, and regular expression syntax.
+- Update PHP compatibility:
+  - Replace `utf8_encode()` with `code2utf(ord())`; deprecated in PHP 8.2 (#4)
 
 ## v1.44 (2026-01-18)
 

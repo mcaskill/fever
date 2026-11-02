@@ -440,7 +440,7 @@ function html_entity_decode_utf8($str)
 		$translation_table = array();
 		foreach (get_safe_html_translation_table(HTML_ENTITIES) as $val=>$key)
 		{
-			$translation_table[$key] = utf8_encode($val);
+			$translation_table[$key] = code2utf(ord($val));
 		}
 	}
 	return strtr($str, $translation_table);
