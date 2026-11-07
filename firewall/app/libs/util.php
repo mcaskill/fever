@@ -417,9 +417,12 @@ function callback_stripslashes_htmlentities($m) {
 
  Accounts for changes introduced in PHP 5.4.
  **************************************************************************/
-function get_safe_html_translation_table() {
-	if (defined('ENT_HTML401')) return get_html_translation_table(HTML_ENTITIES, ENT_COMPAT | ENT_HTML401, 'ISO-8859-1');
-	else return get_html_translation_table(HTML_ENTITIES);
+function get_safe_html_translation_table($table = HTML_SPECIALCHARS) {
+	if (defined('ENT_HTML401'))
+	{
+		return get_html_translation_table($table, ENT_COMPAT | ENT_HTML401, 'ISO-8859-1');
+	}
+	else return get_html_translation_table($table);
 }
 
 /**************************************************************************
