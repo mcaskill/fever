@@ -120,7 +120,7 @@ function request($method = '', $url = '', $post = '', $headers = array(), $follo
 			curl_setopt($request, CURLOPT_TIMEOUT, $time_out);
 			curl_setopt($request, CURLOPT_HEADER, true);
 			curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($request, CURLOPT_ENCODING, 1);
+			curl_setopt($request, CURLOPT_ACCEPT_ENCODING, '');
 
 			if ($parsed_url['scheme'] == 'https')
 			{

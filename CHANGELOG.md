@@ -15,6 +15,7 @@ Note that this repository's codebase only contains a copy of v1.39 and onwards.
 - Clean-up indentation styles and depths, function capitalization, function call syntax, and regular expression syntax.
 - Update PHP compatibility:
   - Remove `curl_close()`; deprecated in PHP 8.5.
+  - Replace `CURLOPT_ENCODING` with `CURLOPT_ACCEPT_ENCODING` added in PHP 5.5; deprecated in cURL 7.21.6.
   - Replace `utf8_encode()` with `code2utf(ord())`; deprecated in PHP 8.2 (#4)
 
 ## v1.44 (2026-01-18)
