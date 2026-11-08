@@ -12,7 +12,7 @@ Note that this repository's codebase only contains a copy of v1.39 and onwards.
 - Add support for controlling PHP error reporting with the global constant `FEVER_DEBUG` (either `true` to report all PHP errors or the desired `E_*` error level).
 - Add `$table` parameter to `get_safe_html_translation_table()` matching default value of equivalent parameter of `get_html_translation_table()`. Only `HTML_ENTITIES` is used in Fever, by `html_entity_decode_utf8()`, but making it parameterizable if need be in the future.
 - Update `is_development_copy()` method to support `.ddev.site`.
-- Clean-up indentation styles and depths, function capitalization, function call syntax, and regular expression syntax.
+- Clean-up indentation styles and depths, function capitalization, function call syntax, regular expression syntax, comment unused debug data.
 - Update PHP compatibility:
   - Remove `curl_close()`; deprecated in PHP 8.5.
   - Replace `CURLOPT_ENCODING` with `CURLOPT_ACCEPT_ENCODING` added in PHP 5.5; deprecated in cURL 7.21.6.
