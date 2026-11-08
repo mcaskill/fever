@@ -143,7 +143,6 @@ function request($method = '', $url = '', $post = '', $headers = array(), $follo
 			{
 				$error['msg'] = curl_error($request);
 			}
-			curl_close($request);
 		}
 		else
 		{
